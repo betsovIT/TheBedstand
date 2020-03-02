@@ -6,18 +6,15 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using TheBedstand.Data.Common.Models;
-    using TheBedstand.Data.Models;
-
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using TheBedstand.Data.Common.Models;
+    using TheBedstand.Data.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         private static readonly MethodInfo SetIsDeletedQueryFilterMethod =
-            typeof(ApplicationDbContext).GetMethod(
-                nameof(SetIsDeletedQueryFilter),
-                BindingFlags.NonPublic | BindingFlags.Static);
+            typeof(ApplicationDbContext).GetMethod(nameof(SetIsDeletedQueryFilter), BindingFlags.NonPublic | BindingFlags.Static);
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

@@ -1,7 +1,14 @@
-﻿namespace TheBedstand.Web
+﻿    namespace TheBedstand.Web
 {
     using System.Reflection;
 
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
     using TheBedstand.Data;
     using TheBedstand.Data.Common;
     using TheBedstand.Data.Common.Repositories;
@@ -12,14 +19,6 @@
     using TheBedstand.Services.Mapping;
     using TheBedstand.Services.Messaging;
     using TheBedstand.Web.ViewModels;
-
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
 
     public class Startup
     {

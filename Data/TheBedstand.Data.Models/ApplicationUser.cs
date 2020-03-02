@@ -1,12 +1,10 @@
-﻿// ReSharper disable VirtualMemberCallInConstructor
-namespace TheBedstand.Data.Models
+﻿namespace TheBedstand.Data.Models
 {
     using System;
     using System.Collections.Generic;
 
-    using TheBedstand.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+    using TheBedstand.Data.Common.Models;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
@@ -33,5 +31,8 @@ namespace TheBedstand.Data.Models
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
+
+        // Additional Info
+        public int MyProperty { get; set; }
     }
 }

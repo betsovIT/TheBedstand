@@ -2,9 +2,8 @@
 {
     using System.Linq;
 
-    using TheBedstand.Data.Common.Models;
-
     using Microsoft.EntityFrameworkCore;
+    using TheBedstand.Data.Common.Models;
 
     internal static class EntityIndexesConfiguration
     {

@@ -5,6 +5,11 @@
     using System.IO;
     using System.Threading.Tasks;
 
+    using CommandLine;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
     using TheBedstand.Data;
     using TheBedstand.Data.Common;
     using TheBedstand.Data.Common.Repositories;
@@ -13,13 +18,6 @@
     using TheBedstand.Data.Seeding;
     using TheBedstand.Services.Data;
     using TheBedstand.Services.Messaging;
-
-    using CommandLine;
-
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
 
     public static class Program
     {

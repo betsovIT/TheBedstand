@@ -1,8 +1,8 @@
 ﻿namespace TheBedstand.Data.Configurations
 {
-    using TheBedstand.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using TheBedstand.Data.Models;
 
     public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {

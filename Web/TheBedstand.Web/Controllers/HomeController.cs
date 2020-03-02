@@ -2,9 +2,9 @@
 {
     using System.Diagnostics;
 
-    using TheBedstand.Web.ViewModels;
-
     using Microsoft.AspNetCore.Mvc;
+
+    using TheBedstand.Web.ViewModels;
 
     public class HomeController : BaseController
     {

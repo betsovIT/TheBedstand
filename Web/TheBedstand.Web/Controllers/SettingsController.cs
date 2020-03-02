@@ -3,12 +3,11 @@
     using System;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Mvc;
     using TheBedstand.Data.Common.Repositories;
     using TheBedstand.Data.Models;
     using TheBedstand.Services.Data;
     using TheBedstand.Web.ViewModels.Settings;
-
-    using Microsoft.AspNetCore.Mvc;
 
     public class SettingsController : BaseController
     {

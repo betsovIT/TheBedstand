@@ -3,9 +3,8 @@ namespace TheBedstand.Data.Models
 {
     using System;
 
-    using TheBedstand.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+    using TheBedstand.Data.Common.Models;
 
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
     {
