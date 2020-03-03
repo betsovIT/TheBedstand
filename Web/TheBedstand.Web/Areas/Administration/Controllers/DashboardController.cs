@@ -1,11 +1,10 @@
 ﻿namespace TheBedstand.Web.Areas.Administration.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-
     using TheBedstand.Services.Data;
-
     using TheBedstand.Web.ViewModels.Administration.Dashboard;
 
+    [Area("Administration")]
     public class DashboardController : AdministrationController
     {
         private readonly ISettingsService settingsService;

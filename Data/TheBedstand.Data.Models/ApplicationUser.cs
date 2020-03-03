@@ -33,6 +33,5 @@
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
         // Additional Info
-        public int MyProperty { get; set; }
     }
 }
