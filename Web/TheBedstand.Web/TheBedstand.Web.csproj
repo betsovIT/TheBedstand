@@ -40,4 +40,14 @@
     <ProjectReference Include="..\TheBedstand.Web.Infrastructure\TheBedstand.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\TheBedstand.Web.ViewModels\TheBedstand.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\vendor\jquery.cookie\test\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Areas\Administration\Views\Genres\Create.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

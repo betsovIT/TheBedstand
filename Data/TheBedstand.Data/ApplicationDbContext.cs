@@ -23,6 +23,12 @@
 
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<Author> Authors { get; set; }
+
+        public DbSet<Book> Books { get; set; }
+
+        public DbSet<BookGenre> BooksGenres { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -69,6 +75,25 @@
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
+            // Entity Relations
+
+            builder.Entity<Book>(e =>
+            {
+                e.HasOne(b => b.Author).WithMany(a => a.Books).HasForeignKey(b => b.AuthorId);
+            });
+
+            builder.Entity<Author>(e =>
+            {
+                e.HasOne(a => a.PseudonymFor).WithMany().HasForeignKey(a => a.PseudonymForId);
+            });
+
+            builder.Entity<BookGenre>(e =>
+            {
+                e.HasKey(bg => new { bg.BookId, bg.GenreId });
+                e.HasOne(bg => bg.Book).WithMany(b => b.BookGenres).HasForeignKey(bg => bg.BookId);
+                e.HasOne(bg => bg.Genre).WithMany(g => g.BooksGenre).HasForeignKey(bg => bg.GenreId);
+            });
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)
