@@ -1,11 +1,12 @@
 ﻿namespace TheBedstand.Data.Seeding
 {
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
     using System;
     using System.Linq;
     using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
     using TheBedstand.Common;
     using TheBedstand.Data.Models;
 
@@ -23,11 +24,11 @@
 
             var admin = new ApplicationUser()
             {
-                UserName = configuration["Admin:Username"],
-                Email = configuration["Admin:Email"]
+                UserName = configuration["Root:Username"],
+                Email = configuration["Root:Email"],
             };
 
-            var password = configuration["Admin:Password"];
+            var password = configuration["Root:Password"];
 
             var result = await userManager.CreateAsync(admin, password);
 

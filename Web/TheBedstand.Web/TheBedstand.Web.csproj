@@ -28,6 +28,10 @@
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.0.96" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.2" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +42,7 @@
     <ProjectReference Include="..\..\Services\TheBedstand.Services.Messaging\TheBedstand.Services.Messaging.csproj" />
     <ProjectReference Include="..\..\Services\TheBedstand.Services\TheBedstand.Services.csproj" />
     <ProjectReference Include="..\TheBedstand.Web.Infrastructure\TheBedstand.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\TheBedstand.Web.InputModels\TheBedstand.Web.InputModels.csproj" />
     <ProjectReference Include="..\TheBedstand.Web.ViewModels\TheBedstand.Web.ViewModels.csproj" />
   </ItemGroup>
 
@@ -46,7 +51,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Areas\Administration\Views\Genres\Create.cshtml">
+    <Content Update="Views\Genres\Create.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

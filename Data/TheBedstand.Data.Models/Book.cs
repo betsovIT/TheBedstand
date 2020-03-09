@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using TheBedstand.Data.Common.Models;
-
-namespace TheBedstand.Data.Models
+﻿namespace TheBedstand.Data.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
+    using TheBedstand.Data.Common.Models;
+
     public class Book : BaseDeletableModel<string>
     {
         public Book()
@@ -13,12 +13,14 @@ namespace TheBedstand.Data.Models
             this.BookGenres = new HashSet<BookGenre>();
         }
 
-        [Required, MinLength(1), MaxLength(300)]
+        [Required]
+        [MinLength(1)]
+        [MaxLength(300)]
         public string Title { get; set; }
 
         public DateTime PublishedOn { get; set; }
 
-        [Range(1,1000)]
+        [Range(1, 1000)]
         public int? PageCount { get; set; }
 
         public string CoverUrl { get; set; }

@@ -64,10 +64,10 @@
                                 Genres
                             </a>
                             <div class="dropdown-menu" aria-labelledby="genresDropdown">
-                                <a class="dropdown-item" href="#">All</a>
+                                <a class="dropdown-item" href="/Genres/All">All</a>
                                 <a class="dropdown-item" href="#"></a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/Administration/Genres/Create">Add Genre</a>
+                                <a class="dropdown-item" href="/Genres/Create">Add Genre</a>
                                 <a class="dropdown-item" href="#">Delete</a>
                             </div>
                         </li>
@@ -97,10 +97,8 @@
                         @if (this.User.FindFirst(ClaimTypes.Name).Value == @Configuration.GetSection("Root")["UserName"])
                         {
                         }
-
-                        <partial name="_LoginPartial" />
                     </ul>
-
+                    <partial name="_LoginPartial" />
                 </div>
             </nav>
         }

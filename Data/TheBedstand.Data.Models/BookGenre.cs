@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TheBedstand.Data.Models
+﻿namespace TheBedstand.Data.Models
 {
     public class BookGenre
     {

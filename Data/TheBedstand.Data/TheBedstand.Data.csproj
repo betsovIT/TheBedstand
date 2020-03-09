@@ -33,9 +33,14 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.2" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Services\TheBedstand.Services.Data\TheBedstand.Services.Data.csproj" />
     <ProjectReference Include="..\..\TheBedstand.Common\TheBedstand.Common.csproj" />
     <ProjectReference Include="..\TheBedstand.Data.Common\TheBedstand.Data.Common.csproj" />
     <ProjectReference Include="..\TheBedstand.Data.Models\TheBedstand.Data.Models.csproj" />

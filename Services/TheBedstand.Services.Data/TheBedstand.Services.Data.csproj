@@ -11,10 +11,17 @@
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\TheBedstand.Data.Common\TheBedstand.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\TheBedstand.Data.Models\TheBedstand.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\TheBedstand.Web.ViewModels\TheBedstand.Web.ViewModels.csproj" />
     <ProjectReference Include="..\TheBedstand.Services.Mapping\TheBedstand.Services.Mapping.csproj" />
   </ItemGroup>
 

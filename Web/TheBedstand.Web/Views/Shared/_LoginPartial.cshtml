@@ -1,10 +1,9 @@
-﻿@using TheBedstand.Common
-@using TheBedstand.Data.Models
+﻿@using TheBedstand.Data.Models
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<ul class="navbar-nav mr-auto">
+<ul class="navbar-nav">
     @if (this.SignInManager.IsSignedIn(this.User))
     {
         <li class="nav-item">

@@ -1,0 +1,12 @@
+﻿@model TheBedstand.Web.ViewModels.Genres.AllGenresViewModel
+@{
+    ViewData["Title"] = "All";
+}
+
+<div class="row">
+    @foreach (var genre in Model.Genres)
+    {
+        <h5 class="col-3">@genre.Name</h5>
+    }
+</div>
+

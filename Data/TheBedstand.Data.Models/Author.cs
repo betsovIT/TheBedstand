@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using TheBedstand.Data.Common.Models;
-
-namespace TheBedstand.Data.Models
+﻿namespace TheBedstand.Data.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
+    using TheBedstand.Data.Common.Models;
+
     public class Author : BaseDeletableModel<int>
     {
         public Author()
@@ -14,6 +15,8 @@ namespace TheBedstand.Data.Models
 
         [Required]
         public string Name { get; set; }
+
+        public string Biography { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
 
