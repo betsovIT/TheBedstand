@@ -4,9 +4,19 @@
 }
 
 <div class="row">
-    @foreach (var genre in Model.Genres)
-    {
-        <h5 class="col-3">@genre.Name</h5>
-    }
+        @foreach (var genre in Model.Genres)
+        {
+            <div class="card col-3 py-2 px-2 border-0">
+                <img class="card-img-topl img-fluid" src="@genre.ImageUrl" alt="Card image cap">
+                <div class="card-body bg-light">
+                    <h5 class="card-title">@genre.Name</h5>
+                    <p>@genre.Description</p>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-light" href="#" role="button">See More</a>
+                </div>
+            </div>
+        }
 </div>
+
 

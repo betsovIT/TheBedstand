@@ -1,7 +1,7 @@
 ﻿namespace TheBedstand.Web.Controllers
 {
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Authorization;
+
     using Microsoft.AspNetCore.Mvc;
     using TheBedstand.Services.Data;
     using TheBedstand.Web.InputModels.Genres;
@@ -31,7 +31,7 @@
         [HttpPost]
         public async Task<IActionResult> Create(CreateGenreInputModel input)
         {
-            await this.genresService.CreateAsync(input.Name);
+            await this.genresService.CreateAsync(input);
 
             return this.RedirectToAction(nameof(this.All));
         }

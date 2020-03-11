@@ -42,6 +42,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Services\TheBedstand.Services.Data\TheBedstand.Services.Data.csproj" />
     <ProjectReference Include="..\..\TheBedstand.Common\TheBedstand.Common.csproj" />
+    <ProjectReference Include="..\..\Web\TheBedstand.Web.InputModels\TheBedstand.Web.InputModels.csproj" />
     <ProjectReference Include="..\TheBedstand.Data.Common\TheBedstand.Data.Common.csproj" />
     <ProjectReference Include="..\TheBedstand.Data.Models\TheBedstand.Data.Models.csproj" />
   </ItemGroup>

@@ -65,7 +65,6 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="genresDropdown">
                                 <a class="dropdown-item" href="/Genres/All">All</a>
-                                <a class="dropdown-item" href="#"></a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/Genres/Create">Add Genre</a>
                                 <a class="dropdown-item" href="#">Delete</a>
@@ -119,12 +118,13 @@
         }
     </header>
 
-    <div class="container">
-        <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
+    <main>
+        <div class="container">
             @this.RenderBody()
-        </main>
-    </div>
+        </div>
+        
+    </main>
+
 
     <footer class="border-top footer text-muted">
         <div class="container">

@@ -6,6 +6,7 @@
 
     using TheBedstand.Data.Common.Repositories;
     using TheBedstand.Data.Models;
+    using TheBedstand.Web.InputModels.Genres;
     using TheBedstand.Web.ViewModels.Genres;
 
     public class GenresService : IGenresService
@@ -17,11 +18,13 @@
             this.genresRepository = genresRepository;
         }
 
-        public async Task CreateAsync(string name)
+        public async Task CreateAsync(CreateGenreInputModel model)
         {
             var genre = new Genre
             {
-                Name = name,
+                Name = model.Name,
+                Description = model.Description,
+                ImageUrl = model.ImageUrl,
             };
 
             await this.genresRepository.AddAsync(genre);
@@ -34,6 +37,8 @@
             result.Genres = this.genresRepository.All().Select(x => new GenreInfoViewModel
             {
                 Name = x.Name,
+                Description = x.Description,
+                ImageUrl = x.ImageUrl,
             });
 
             return result;
