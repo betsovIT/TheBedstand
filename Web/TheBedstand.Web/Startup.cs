@@ -1,7 +1,8 @@
-﻿    namespace TheBedstand.Web
+﻿namespace TheBedstand.Web
 {
     using System.Reflection;
 
+    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -16,6 +17,7 @@
     using TheBedstand.Data.Models;
     using TheBedstand.Data.Repositories;
     using TheBedstand.Data.Seeding;
+    using TheBedstand.Services;
     using TheBedstand.Services.Data;
     using TheBedstand.Services.Mapping;
     using TheBedstand.Services.Messaging;
@@ -35,6 +37,15 @@
         {
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
+
+            Account cloudinaryCredentials = new Account(
+                this.configuration["Cloudinary:CloudName"],
+                this.configuration["Cloudinary:ApiKey"],
+                this.configuration["Cloudinary:ApiSecret"]);
+
+            Cloudinary cloudinaryUtility = new Cloudinary(cloudinaryCredentials);
+
+            services.AddSingleton(cloudinaryUtility);
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
@@ -66,6 +77,7 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IGenresService, GenresService>();
         }

@@ -18,16 +18,17 @@
             this.genresRepository = genresRepository;
         }
 
-        public async Task CreateAsync(CreateGenreInputModel model)
+        public async Task CreateAsync(string name, string description, string imageUrl)
         {
             var genre = new Genre
             {
-                Name = model.Name,
-                Description = model.Description,
-                ImageUrl = model.ImageUrl,
+                Name = name,
+                Description = description,
+                ImageUrl = imageUrl,
             };
 
             await this.genresRepository.AddAsync(genre);
+            await this.genresRepository.SaveChangesAsync();
         }
 
         public AllGenresViewModel GetAll()

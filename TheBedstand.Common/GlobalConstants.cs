@@ -9,5 +9,7 @@
         public const string UserRoleName = "User";
 
         public const string CriticRoleName = "Critic";
+
+        public const string CloudFolderForGenrePhotos = "genre_photos";
     }
 }

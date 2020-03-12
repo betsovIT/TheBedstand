@@ -2,6 +2,8 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using Microsoft.AspNetCore.Http;
+
     public class CreateGenreInputModel
     {
         [Required]
@@ -14,6 +16,7 @@
         [MaxLength(300)]
         public string Description { get; set; }
 
-        public string ImageUrl { get; set; }
+        [Display(Name = "Image")]
+        public IFormFile Image { get; set; }
     }
 }

@@ -4,10 +4,11 @@
 }
 
 <div class="row">
-        @foreach (var genre in Model.Genres)
-        {
-            <div class="card col-3 py-2 px-2 border-0">
-                <img class="card-img-topl img-fluid" src="@genre.ImageUrl" alt="Card image cap">
+    @foreach (var genre in Model.Genres)
+    {
+        <div class="col-md-3  py-2 px-2 d-flex align-items-stretch">
+            <div class="card">
+                <img class="card-img" src="@genre.ImageUrl" alt="Genre Image">
                 <div class="card-body bg-light">
                     <h5 class="card-title">@genre.Name</h5>
                     <p>@genre.Description</p>
@@ -16,7 +17,6 @@
                     <a class="btn btn-light" href="#" role="button">See More</a>
                 </div>
             </div>
-        }
+        </div>
+    }
 </div>
-
-
