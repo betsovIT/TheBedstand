@@ -1,0 +1,59 @@
+﻿@model TheBedstand.Web.InputModels.Authors.AuthorInputModel
+@namespace TheBedstand.Data.Models.Enums
+@{
+    ViewData["Title"] = "Create";
+}
+
+    <form asp-controller="Authors" asp-action="Create" method="post" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label class="text-dark" for="PersonalName">Personal Name</label>
+            <input asp-for="PersonalName" class="form-control w-25" type="text" id="PersonalName" />
+            <span asp-validation-for="PersonalName"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="text-dark" for="PersonalName">Surname</label>
+            <input asp-for="Surname" class="form-control w-25" type="text" id="Surname" />
+            <span asp-validation-for="Surname" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="text-dark" for="Biography">Biography</label>
+            <textarea asp-for="Biography" class="form-control" type="text" placeholder="Enter the author's biography here..." id="Biography"></textarea>
+            <span asp-validation-for="Biography" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="text-dark" for="Biography">Date of Birth</label>
+            <input asp-for="DateOfBirth" class="form-control" type="date" id="DateOfBirth">
+            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="text-dark" for="C">Pseudonym For</label>
+            <select asp-for="PseudonymForId" asp-items="@((IEnumerable<SelectListItem>)ViewData["Authors"])">
+                <option selected="selected" value="">Please select</option>
+            </select>
+            <span asp-validation-for="PseudonymForId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="text-dark" for="C">Country</label>
+            <select asp-for="Country" asp-items="Html.GetEnumSelectList<Country>()">
+                <option selected="selected" value="">Please select</option>
+            </select>
+            <span asp-validation-for="Country" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Image" class="upload-btn">
+                <i class="fa fa-upload"></i> Upload
+                <input asp-for="Image" type="file" />
+            </label>
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+
+        <button class="btn-primary btn my-2" type="submit">Create</button>
+    </form>
+

@@ -1,19 +1,14 @@
-﻿namespace TheBedstand.Data.Models
+﻿namespace TheBedstand.Web.InputModels.Authors
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Text;
 
-    using TheBedstand.Data.Common.Models;
-    using TheBedstand.Data.Models.Enums;
+    using Microsoft.AspNetCore.Http;
 
-    public class Author : BaseDeletableModel<int>
+    public class AuthorInputModel
     {
-        public Author()
-        {
-            this.Books = new HashSet<Book>();
-        }
-
         [MinLength(2)]
         [MaxLength(20)]
         public string PersonalName { get; set; }
@@ -25,17 +20,15 @@
 
         public string Biography { get; set; }
 
+        [DataType(DataType.Date)]
+        [Required]
         public DateTime? DateOfBirth { get; set; }
 
         public int? PseudonymForId { get; set; }
 
-        public Author PseudonymFor { get; set; }
-
         [Required]
-        public Country Country { get; set; }
+        public int Country { get; set; }
 
-        public string ImageUrl { get; set; }
-
-        public ICollection<Book> Books { get; set; }
+        public IFormFile Image { get; set; }
     }
 }

@@ -11,5 +11,7 @@
         public const string CriticRoleName = "Critic";
 
         public const string CloudFolderForGenrePhotos = "genre_photos";
+
+        public const string CloudFolderForAuthorsPhotos = "author_photos";
     }
 }

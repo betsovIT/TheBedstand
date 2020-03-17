@@ -20,7 +20,7 @@
 
         public DateTime PublishedOn { get; set; }
 
-        [Range(1, 1000)]
+        [Range(1, 10000)]
         public int? PageCount { get; set; }
 
         public string CoverUrl { get; set; }

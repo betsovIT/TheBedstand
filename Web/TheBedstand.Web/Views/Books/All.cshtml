@@ -1,0 +1,30 @@
+﻿@model IEnumerable<TheBedstand.Web.ViewModels.Books.BookInfoViewModel>
+@{
+    ViewData["Title"] = "All";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Cover</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Page Count</th>
+            <th scope="col">Genres</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td class="w-25">
+                    <img src="@book.CoverUrl" class="img-fluid h-25" alt="Book Cover">
+                </td>
+                <td>@book.Title</td>
+                <td>@(book.Author.PersonalName + " " + book.Author.Surname)</td>
+                <td>@book.PageCount</td>
+                <td>@string.Join(", ", book.Genres)</td>
+            </tr>
+        }
+    </tbody>
+</table>
