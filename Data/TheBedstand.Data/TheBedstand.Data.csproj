@@ -11,6 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200324145130_AddedConstraintToBookEntityKey.cs" />
+    <Compile Remove="Migrations\20200324145130_AddedConstraintToBookEntityKey.Designer.cs" />
+    <Compile Remove="Migrations\20200324150619_AddedConstraintToBookGenreEntityKey.cs" />
+    <Compile Remove="Migrations\20200324150619_AddedConstraintToBookGenreEntityKey.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
 

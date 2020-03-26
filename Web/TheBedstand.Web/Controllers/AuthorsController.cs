@@ -53,5 +53,11 @@
 
             return this.RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public IActionResult All()
+        {
+            return this.View();
+        }
     }
 }

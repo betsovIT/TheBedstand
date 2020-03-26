@@ -13,6 +13,8 @@
 
         public DateTime PublishedOn { get; set; }
 
+        public string Annotation { get; set; }
+
         public int? PageCount { get; set; }
 
         public string CoverUrl { get; set; }

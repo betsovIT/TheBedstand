@@ -1,12 +1,11 @@
 ﻿namespace TheBedstand.Services.Data
 {
-    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using TheBedstand.Data.Common.Repositories;
     using TheBedstand.Data.Models;
-    using TheBedstand.Web.InputModels.Genres;
     using TheBedstand.Web.ViewModels.Genres;
 
     public class GenresService : IGenresService
@@ -40,6 +39,17 @@
                 Name = x.Name,
                 Description = x.Description,
                 ImageUrl = x.ImageUrl,
+            });
+
+            return result;
+        }
+
+        public IEnumerable<GenreForSelectListModel> GetGenresForSelectList()
+        {
+            var result = this.genresRepository.All().Select(x => new GenreForSelectListModel
+            {
+                Id = x.Id,
+                Name = x.Name,
             });
 
             return result;

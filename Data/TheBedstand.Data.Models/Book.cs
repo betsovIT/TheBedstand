@@ -23,6 +23,8 @@
         [Range(1, 10000)]
         public int? PageCount { get; set; }
 
+        public string Annotation { get; set; }
+
         public string CoverUrl { get; set; }
 
         [Required]

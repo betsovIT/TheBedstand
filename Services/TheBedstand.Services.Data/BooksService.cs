@@ -27,6 +27,7 @@
                      Title = b.Title,
                      CoverUrl = b.CoverUrl,
                      PageCount = b.PageCount,
+                     Annotation = b.Annotation,
                      PublishedOn = b.PublishedOn,
                      Author = b.Author,
                      Id = b.Id,
