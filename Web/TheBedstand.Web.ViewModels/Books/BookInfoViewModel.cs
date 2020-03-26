@@ -13,7 +13,9 @@
 
         public DateTime PublishedOn { get; set; }
 
-        public string Annotation { get; set; }
+        public string LongAnnotation { get; set; }
+
+        public string ShortAnnotation { get; set; }
 
         public int? PageCount { get; set; }
 

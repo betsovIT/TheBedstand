@@ -1,4 +1,6 @@
 ﻿@model TheBedstand.Web.InputModels.Books.BookInputModel
+@using TheBedstand.Common.Helpers
+
     <form asp-controller="Books" asp-action="Create" method="post" enctype="multipart/form-data">
 
         <div class="form-group">
@@ -41,7 +43,7 @@
 
         <div class="form-group">
             <label class="text-dark" >Author</label>
-            <select asp-for="AuthorId" asp-items="@((IEnumerable<SelectListItem>)ViewData["Authors"])">
+            <select asp-for="AuthorId" asp-items="@(Model.AuthorsForSelectList.Select(x => new SelectListItem { Text = NameHelper.GetFullName(x.PersonalName,x.Surname), Value = x.Id.ToString()}));">
                 <option selected="selected" value="">Please select</option>
             </select>
             <span asp-validation-for="AuthorId" class="text-danger"></span>
@@ -49,7 +51,7 @@
 
         <div class="form-group">
             <label class="text-dark" >Genres</label>
-            <select asp-for="GenreIds" asp-items="@((IEnumerable<SelectListItem>)ViewData["Genres"])" >
+            <select asp-for="GenreIds" asp-items="@(Model.GenresForSelectList.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }));" >
                 <option selected="selected" value="">Please select</option>
             </select>
             <span asp-validation-for="GenreIds" class="text-danger"></span>

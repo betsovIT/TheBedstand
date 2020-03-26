@@ -7,10 +7,13 @@
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using TheBedstand.Common;
     using TheBedstand.Common.Helpers;
     using TheBedstand.Services;
     using TheBedstand.Services.Data;
     using TheBedstand.Web.InputModels.Books;
+    using TheBedstand.Web.ViewModels.Authors;
+    using TheBedstand.Web.ViewModels.Genres;
 
     public class BooksController : Controller
     {
@@ -37,33 +40,54 @@
         [HttpGet]
         public IActionResult Create()
         {
-            var authorsSelectList = this.authorsService.GetAll().Select(x => new SelectListItem
-            {
-                Value = x.Id.ToString(),
-                Text = NameHelper.GetFullName(x.PersonalName, x.Surname),
-            });
+            var model = new BookInputModel();
 
-            var genresSelectList = this.genresService.GetGenresForSelectList().Select(x => new SelectListItem
-            {
-                Text = x.Name,
-                Value = x.Id.ToString(),
-            });
+            this.AttachSelectListsToBookInputModel(model);
 
-            this.ViewData.Add("Authors", authorsSelectList);
-            this.ViewData.Add("Genres", genresSelectList);
-
-            return this.View();
+            return this.View(model);
         }
 
         [HttpPost]
-        public IActionResult Create(BookInputModel input)
+        public async Task<IActionResult> Create(BookInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
+                this.AttachSelectListsToBookInputModel(input);
                 return this.View(input);
             }
 
+            string imageUrl = null;
+
+            if (input.Cover != null)
+            {
+                imageUrl = await this.cloudinaryService
+                .UploadPhotoAsync(input.Cover, $"{input.Title + " _cover"}", GlobalConstants.CloudFolderForBookCovers);
+            }
+
+            await this.booksService.Create(input, imageUrl);
+
             return this.RedirectToAction("Index", "Home");
+        }
+
+        private BookInputModel AttachSelectListsToBookInputModel(BookInputModel input)
+        {
+            var authorsForSelectList = this.authorsService.GetAll().Select(x => new AuthorFormInfoModel
+            {
+                Id = x.Id,
+                PersonalName = x.PersonalName,
+                Surname = x.Surname,
+            });
+
+            var genresForSelectList = this.genresService.GetGenresForSelectList().Select(x => new GenreForSelectListViewModel
+            {
+                Id = x.Id,
+                Name = x.Name,
+            });
+
+            input.GenresForSelectList = genresForSelectList.ToArray();
+            input.AuthorsForSelectList = authorsForSelectList.ToArray();
+
+            return input;
         }
     }
 }

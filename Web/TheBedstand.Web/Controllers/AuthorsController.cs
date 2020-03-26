@@ -1,17 +1,14 @@
 ﻿namespace TheBedstand.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
     using TheBedstand.Common;
-    using TheBedstand.Common.Helpers;
     using TheBedstand.Services;
     using TheBedstand.Services.Data;
     using TheBedstand.Web.InputModels.Authors;
+    using TheBedstand.Web.ViewModels.Authors;
 
     public class AuthorsController : Controller
     {
@@ -27,15 +24,10 @@
         [HttpGet]
         public IActionResult Create()
         {
-            var authorsSelectList = this.authorsService.GetAll().Select(x => new SelectListItem
-            {
-                Value = x.Id.ToString(),
-                Text = NameHelper.GetFullName(x.PersonalName, x.Surname),
-            });
+            var model = new AuthorInputModel();
+            this.AttachAuthorsForSelectListToInputModel(model);
 
-            this.ViewData.Add("Authors", authorsSelectList);
-
-            return this.View();
+            return this.View(model);
         }
 
         [HttpPost]
@@ -43,11 +35,17 @@
         {
             if (!this.ModelState.IsValid)
             {
+                this.AttachAuthorsForSelectListToInputModel(input);
                 return this.View(input);
             }
 
-            var imageUrl = await this.cloudinaryService
+            string imageUrl = null;
+
+            if (input.Image != null)
+            {
+                imageUrl = await this.cloudinaryService
                 .UploadPhotoAsync(input.Image, $"{input.PersonalName + " " + input.Surname}", GlobalConstants.CloudFolderForAuthorsPhotos);
+            }
 
             await this.authorsService.CreateAsync(input, imageUrl);
 
@@ -58,6 +56,18 @@
         public IActionResult All()
         {
             return this.View();
+        }
+
+        private AuthorInputModel AttachAuthorsForSelectListToInputModel(AuthorInputModel input)
+        {
+            input.AuthorsForSelectList = this.authorsService.GetAll().Select(a => new AuthorFormInfoModel
+            {
+                Id = a.Id,
+                PersonalName = a.PersonalName,
+                Surname = a.Surname,
+            });
+
+            return input;
         }
     }
 }

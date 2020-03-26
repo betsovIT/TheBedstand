@@ -17,14 +17,14 @@
             {
                 var nonCheckDigitMultiplicationSum = 0;
 
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i <= 8; i++)
                 {
                     nonCheckDigitMultiplicationSum += int.Parse(isbn[i].ToString()) * (10 - i);
                 }
 
                 int providedCheckDigit;
 
-                if (isbn[10] == 'X' || isbn[9] == 'x')
+                if (isbn[9] == 'X' || isbn[9] == 'x')
                 {
                     providedCheckDigit = 10;
                 }
@@ -50,7 +50,7 @@
 
                 int multiplicator = 0;
 
-                for (int i = 0; i < 12; i++)
+                for (int i = 0; i <= 12; i++)
                 {
                     if (i % 2 == 0)
                     {

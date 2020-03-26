@@ -1,8 +1,6 @@
-﻿@model TheBedstand.Web.InputModels.Authors.AuthorInputModel
-@namespace TheBedstand.Data.Models.Enums
-@{
-    ViewData["Title"] = "Create";
-}
+﻿@model TheBedstand.Web.InputModels.Authors.AuthorInputModel;
+@using TheBedstand.Data.Models.Enums;
+@using TheBedstand.Common.Helpers;
 
     <form asp-controller="Authors" asp-action="Create" method="post" enctype="multipart/form-data">
 
@@ -32,7 +30,7 @@
 
         <div class="form-group">
             <label class="text-dark" for="C">Pseudonym For</label>
-            <select asp-for="PseudonymForId" asp-items="@((IEnumerable<SelectListItem>)ViewData["Authors"])">
+            <select asp-for="PseudonymForId" asp-items="@(Model.AuthorsForSelectList.Select(a => new SelectListItem { Text = NameHelper.GetFullName(a.PersonalName, a.Surname), Value = a.Id.ToString() })); ">
                 <option selected="selected" value="">Please select</option>
             </select>
             <span asp-validation-for="PseudonymForId" class="text-danger"></span>

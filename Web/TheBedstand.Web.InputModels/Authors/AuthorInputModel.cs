@@ -6,6 +6,7 @@
     using System.Text;
 
     using Microsoft.AspNetCore.Http;
+    using TheBedstand.Web.ViewModels.Authors;
 
     public class AuthorInputModel
     {
@@ -30,5 +31,7 @@
         public int Country { get; set; }
 
         public IFormFile Image { get; set; }
+
+        public IEnumerable<AuthorFormInfoModel> AuthorsForSelectList { get; set; }
     }
 }

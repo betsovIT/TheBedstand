@@ -13,5 +13,7 @@
         public const string CloudFolderForGenrePhotos = "genre_photos";
 
         public const string CloudFolderForAuthorsPhotos = "author_photos";
+
+        public const string CloudFolderForBookCovers = "book_covers";
     }
 }

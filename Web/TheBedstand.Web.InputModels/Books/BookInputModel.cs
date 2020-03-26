@@ -1,10 +1,13 @@
 ﻿namespace TheBedstand.Web.InputModels.Books
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using Microsoft.AspNetCore.Http;
     using TheBedstand.Web.Common;
+    using TheBedstand.Web.ViewModels.Authors;
+    using TheBedstand.Web.ViewModels.Genres;
 
     public class BookInputModel
     {
@@ -34,5 +37,9 @@
 
         [Required]
         public int[] GenreIds { get; set; }
+
+        public GenreForSelectListViewModel[] GenresForSelectList { get; set; }
+
+        public AuthorFormInfoModel[] AuthorsForSelectList { get; set; }
     }
 }
