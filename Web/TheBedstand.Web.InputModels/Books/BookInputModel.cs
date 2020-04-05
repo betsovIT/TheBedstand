@@ -40,6 +40,6 @@
 
         public GenreForSelectListViewModel[] GenresForSelectList { get; set; }
 
-        public AuthorFormInfoModel[] AuthorsForSelectList { get; set; }
+        public AuthorBasicInfoModel[] AuthorsForSelectList { get; set; }
     }
 }

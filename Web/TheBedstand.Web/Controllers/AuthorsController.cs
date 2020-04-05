@@ -5,6 +5,7 @@
 
     using Microsoft.AspNetCore.Mvc;
     using TheBedstand.Common;
+    using TheBedstand.Data;
     using TheBedstand.Services;
     using TheBedstand.Services.Data;
     using TheBedstand.Web.InputModels.Authors;
@@ -14,6 +15,7 @@
     {
         private readonly IAuthorsService authorsService;
         private readonly ICloudinaryService cloudinaryService;
+        private readonly ApplicationDbContext db;
 
         public AuthorsController(IAuthorsService authorsService, ICloudinaryService cloudinaryService)
         {
@@ -55,17 +57,20 @@
         [HttpGet]
         public IActionResult All()
         {
-            return this.View();
+            var model = this.authorsService.GetAuthorBasicInfo();
+            return this.View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            var author = this.authorsService.GetById(id);
+            return this.View(author);
         }
 
         private AuthorInputModel AttachAuthorsForSelectListToInputModel(AuthorInputModel input)
         {
-            input.AuthorsForSelectList = this.authorsService.GetAll().Select(a => new AuthorFormInfoModel
-            {
-                Id = a.Id,
-                PersonalName = a.PersonalName,
-                Surname = a.Surname,
-            });
+            input.AuthorsForSelectList = this.authorsService.GetAuthorBasicInfo();
 
             return input;
         }

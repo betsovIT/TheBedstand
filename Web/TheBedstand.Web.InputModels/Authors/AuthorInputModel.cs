@@ -22,7 +22,6 @@
         public string Biography { get; set; }
 
         [DataType(DataType.Date)]
-        [Required]
         public DateTime? DateOfBirth { get; set; }
 
         public int? PseudonymForId { get; set; }
@@ -32,6 +31,6 @@
 
         public IFormFile Image { get; set; }
 
-        public IEnumerable<AuthorFormInfoModel> AuthorsForSelectList { get; set; }
+        public IEnumerable<AuthorBasicInfoModel> AuthorsForSelectList { get; set; }
     }
 }

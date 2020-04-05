@@ -1,0 +1,52 @@
+﻿@model TheBedstand.Web.ViewModels.Authors.AuthorDetailsViewModel
+@using TheBedstand.Common.Helpers
+
+    <div class="bg-gray">
+        <div class="row">
+            <div class="col-3 py-2 mx-2">
+                <img src="@Model.ImageUrl" class="w-100" />
+            </div>
+            <div class="col-7">
+                <h3>@NameHelper.GetFullName(Model.PersonalName, Model.Surname)</h3>
+                <hr />
+                <div class="row">
+                    <span class="font-weight-bold col-3">Born:</span>
+                    <span class="col-9">@Model.DateOfBirth.Value.ToString("dd/MM/yyyy")</span>
+                </div>
+                <div class="row">
+                    <span class="font-weight-bold col-3">Country:</span>
+                    <span class="col-9">@(Model.Country)</span>
+                </div>
+                <div class="row">
+                    <span class="font-weight-bold col-3">Pseudonym for:</span>
+                    <span class="col-9">@Model.PseudonymForAuthor</span>
+                </div>
+                <div class="row">
+                    <span class="font-weight-bold col-3">Genres:</span>
+                    <span class="col-9">@string.Join(", ", Model.Genres)</span>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+        <div class="mx-2 pb-1">
+            <h6 class="text-center">Biography</h6>
+            <p>
+                @Model.Biography
+            </p>
+        </div>
+        <hr />
+        <h3 class="text-center">Books</h3>
+        <hr />
+
+        @foreach (var book in Model.Books)
+        {
+            <a href="#" class="ml-4 my-2 row">
+                <img width="100" src="@book.CoverUrl" />
+                <h5 class="mx-auto my-auto">@book.Title</h5>
+            </a>
+        }
+
+        <hr />
+    </div>
+

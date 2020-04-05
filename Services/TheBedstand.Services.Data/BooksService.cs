@@ -28,7 +28,7 @@
                      Title = b.Title,
                      CoverUrl = b.CoverUrl,
                      PageCount = b.PageCount,
-                     ShortAnnotation = b.Annotation.Substring(0, Math.Min(b.Annotation.Length, 100)),
+                     ShortAnnotation = b.Annotation != null ? b.Annotation.Substring(0, Math.Min(b.Annotation.Length, 100)) : null,
                      LongAnnotation = b.Annotation,
                      PublishedOn = b.PublishedOn,
                      Author = b.Author,

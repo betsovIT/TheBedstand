@@ -2,7 +2,7 @@
 @using TheBedstand.Data.Models.Enums;
 @using TheBedstand.Common.Helpers;
 
-    <form asp-controller="Authors" asp-action="Create" method="post" enctype="multipart/form-data">
+    <form class="container bg-light mt-3" asp-controller="Authors" asp-action="Create" method="post" enctype="multipart/form-data">
 
         <div class="form-group">
             <label class="text-dark" for="PersonalName">Personal Name</label>
@@ -18,13 +18,13 @@
 
         <div class="form-group">
             <label class="text-dark" for="Biography">Biography</label>
-            <textarea asp-for="Biography" class="form-control" type="text" placeholder="Enter the author's biography here..." id="Biography"></textarea>
+            <textarea asp-for="Biography" class="form-control w-50" type="text" placeholder="Enter the author's biography here..." id="Biography"></textarea>
             <span asp-validation-for="Biography" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label class="text-dark" for="Biography">Date of Birth</label>
-            <input asp-for="DateOfBirth" class="form-control" type="date" id="DateOfBirth">
+            <input asp-for="DateOfBirth" class="form-control w-50" type="date" id="DateOfBirth">
             <span asp-validation-for="DateOfBirth" class="text-danger"></span>
         </div>
 
@@ -54,4 +54,6 @@
 
         <button class="btn-primary btn my-2" type="submit">Create</button>
     </form>
+
+<div class="bord"></div>
 

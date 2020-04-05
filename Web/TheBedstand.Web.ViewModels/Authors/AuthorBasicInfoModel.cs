@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Text;
 
-    public class AuthorFormInfoModel
+    public class AuthorBasicInfoModel
     {
         public int Id { get; set; }
 

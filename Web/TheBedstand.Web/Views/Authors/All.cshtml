@@ -1,30 +1,58 @@
-﻿<div class="row">
-    <div class="col-lg-8 mx-auto">
-        <!-- List group-->
-        <ul class="list-group shadow">
-            <!-- list group item-->
-            <li class="list-group-item">
-                <!-- Custom content-->
-                <div class="media align-items-lg-center flex-column flex-lg-row p-3">
-                    <div class="media-body order-2 order-lg-1">
-                        <h5 class="mt-0 font-weight-bold mb-2">Awesome product</h5>
-                        <p class="font-italic text-muted mb-0 small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit fuga autem maiores necessitatibus.</p>
-                        <div class="d-flex align-items-center justify-content-between mt-1">
-                            <h6 class="font-weight-bold my-2">$120.00</h6>
-                            <ul class="list-inline small">
-                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
-                            </ul>
-                        </div>
-                    </div><img src="https://res.cloudinary.com/mhmd/image/upload/v1556485076/shoes-1_gthops.jpg" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
-                </div>
-                <!-- End -->
-            </li>
-            <!-- End -->
-        </ul>
-        <!-- End -->
+﻿@model IEnumerable<TheBedstand.Web.ViewModels.Authors.AuthorBasicInfoModel>;
+
+<nav class="my-3" aria-label="Authors navigation">
+    <ul class="pagination justify-content-center">
+        <li id="PageA" class="page-item disabled"><a class="page-link" onclick="togglePageItems('A');" href="javascript:void(0);">A</a></li>
+        <li id="PageB" class="page-item"><a class="page-link" onclick="togglePageItems('B');" href="javascript:void(0);">B</a></li>
+        <li id="PageC" class="page-item"><a class="page-link" onclick="togglePageItems('C');" href="javascript:void(0);">C</a></li>
+        <li id="PageD" class="page-item"><a class="page-link" onclick="togglePageItems('D');" href="javascript:void(0);">D</a></li>
+        <li id="PageE" class="page-item"><a class="page-link" onclick="togglePageItems('E');" href="javascript:void(0);">E</a></li>
+        <li id="PageF" class="page-item"><a class="page-link" onclick="togglePageItems('F');" href="javascript:void(0);">F</a></li>
+        <li id="PageG" class="page-item"><a class="page-link" onclick="togglePageItems('G');" href="javascript:void(0);">G</a></li>
+        <li id="PageH" class="page-item"><a class="page-link" onclick="togglePageItems('H');" href="javascript:void(0);">H</a></li>
+        <li id="PageI" class="page-item"><a class="page-link" onclick="togglePageItems('I');" href="javascript:void(0);">I</a></li>
+        <li id="PageJ" class="page-item"><a class="page-link" onclick="togglePageItems('J');" href="javascript:void(0);">J</a></li>
+        <li id="PageK" class="page-item"><a class="page-link" onclick="togglePageItems('K');" href="javascript:void(0);">K</a></li>
+        <li id="PageL" class="page-item"><a class="page-link" onclick="togglePageItems('L');" href="javascript:void(0);">L</a></li>
+        <li id="PageM" class="page-item"><a class="page-link" onclick="togglePageItems('M');" href="javascript:void(0);">M</a></li>
+        <li id="PageN" class="page-item"><a class="page-link" onclick="togglePageItems('N');" href="javascript:void(0);">N</a></li>
+        <li id="PageO" class="page-item"><a class="page-link" onclick="togglePageItems('O');" href="javascript:void(0);">O</a></li>
+        <li id="PageP" class="page-item"><a class="page-link" onclick="togglePageItems('P');" href="javascript:void(0);">P</a></li>
+        <li id="PageQ" class="page-item"><a class="page-link" onclick="togglePageItems('Q');" href="javascript:void(0);">Q</a></li>
+        <li id="PageR" class="page-item"><a class="page-link" onclick="togglePageItems('R');" href="javascript:void(0);">R</a></li>
+        <li id="PageS" class="page-item"><a class="page-link" onclick="togglePageItems('S');" href="javascript:void(0);">S</a></li>
+        <li id="PageT" class="page-item"><a class="page-link" onclick="togglePageItems('T');" href="javascript:void(0);">T</a></li>
+        <li id="PageU" class="page-item"><a class="page-link" onclick="togglePageItems('U');" href="javascript:void(0);">U</a></li>
+        <li id="PageV" class="page-item"><a class="page-link" onclick="togglePageItems('V');" href="javascript:void(0);">V</a></li>
+        <li id="PageW" class="page-item"><a class="page-link" onclick="togglePageItems('W');" href="javascript:void(0);">W</a></li>
+        <li id="PageX" class="page-item"><a class="page-link" onclick="togglePageItems('X');" href="javascript:void(0);">X</a></li>
+        <li id="PageY" class="page-item"><a class="page-link" onclick="togglePageItems('Y');" href="javascript:void(0);">Y</a></li>
+        <li id="PageZ" class="page-item"><a class="page-link" onclick="togglePageItems('Z');" href="javascript:void(0);">Z</a></li>
+    </ul>
+</nav>
+
+@for (int i = 'A'; i <= 'Z'; i++)
+{
+    <div id="@("AuthorsWith"+(char)i)" class="row my-3 justify-content-center text-center" style="@(i=='A' ? "" : "display: none")">
+        @foreach (var author in Model.Where(x => x.Surname.StartsWith((char)i)).OrderBy(x => x.Surname))
+        {
+            <div class="bg-light col-3 my-2 mx-1" style="font-size: 20px">
+                <a href="/Authors/Details?id=@author.Id" class="text-dark"><strong>@author.Surname</strong>, <text>@author.PersonalName</text></a>
+            </div>
+        }
     </div>
-</div>
+}
+
+<script type="text/javascript">
+    function togglePageItems(letter) {
+
+        let divId = "AuthorsWith" + letter;
+        let pageId = "Page" + letter;
+
+        $('div[id^="AuthorsWith"]').hide();
+        $("#" + divId).show();
+
+        $('.page-item').removeClass('disabled');
+        $("#" + pageId).addClass('disabled');
+    }
+</script>

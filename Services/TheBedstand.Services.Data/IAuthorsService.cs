@@ -12,6 +12,8 @@
     {
         Task CreateAsync(AuthorInputModel input, string imageUrl);
 
-        IEnumerable<Author> GetAll();
+        IEnumerable<AuthorBasicInfoModel> GetAuthorBasicInfo();
+
+        AuthorDetailsViewModel GetById(int id);
     }
 }

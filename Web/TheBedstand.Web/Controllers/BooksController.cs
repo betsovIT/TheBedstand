@@ -71,7 +71,7 @@
 
         private BookInputModel AttachSelectListsToBookInputModel(BookInputModel input)
         {
-            var authorsForSelectList = this.authorsService.GetAll().Select(x => new AuthorFormInfoModel
+            var authorsForSelectList = this.authorsService.GetAuthorBasicInfo().Select(x => new AuthorBasicInfoModel
             {
                 Id = x.Id,
                 PersonalName = x.PersonalName,
