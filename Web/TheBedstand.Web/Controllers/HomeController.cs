@@ -8,7 +8,6 @@
 
     public class HomeController : BaseController
     {
-        //Test!
         public IActionResult Index()
         {
             return this.View();
