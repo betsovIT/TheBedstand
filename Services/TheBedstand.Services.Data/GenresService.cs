@@ -36,6 +36,7 @@
 
             result.Genres = this.genresRepository.All().Select(x => new GenreInfoViewModel
             {
+                Id = x.Id,
                 Name = x.Name,
                 Description = x.Description,
                 ImageUrl = x.ImageUrl,

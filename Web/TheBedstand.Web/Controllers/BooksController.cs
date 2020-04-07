@@ -69,6 +69,20 @@
             return this.RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public IActionResult GetByGenre(int id)
+        {
+            return this.View("All", this.booksService.GetByGenre(id));
+        }
+
+        [HttpGet]
+        public IActionResult Details(string id)
+        {
+            var model = this.booksService.GetById(id);
+
+            return this.View(model);
+        }
+
         private BookInputModel AttachSelectListsToBookInputModel(BookInputModel input)
         {
             var authorsForSelectList = this.authorsService.GetAuthorBasicInfo().Select(x => new AuthorBasicInfoModel

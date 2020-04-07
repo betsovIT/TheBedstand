@@ -9,25 +9,27 @@
         <ul class="list-group shadow">
             @foreach (var book in Model)
             {
-                <li class="list-group-item">
+                <li class="list-group-item mb-2">
                     <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                         <div class="media-body order-2 order-lg-1">
-                            <h4 class="mt-0 font-weight-bold mb-2">@book.Title</h4>
-                            <h6 class="text-muted">by <a href="#" class="text-muted">@NameHelper.GetFullName(book.Author.PersonalName, book.Author.Surname)</a></h6>
+                            <h4 class="mt-0 font-weight-bold mb-2"><a href="/Books/Details?id=@book.Id" class="text-dark">@book.Title</a></h4>
+                            <h6 class="text-muted">by <a href="/Authors/Details?id=@book.Author.Id" class="text-muted">@NameHelper.GetFullName(book.Author.PersonalName, book.Author.Surname)</a></h6>
                             <p id="isAnnotationHidden-@book.Id" hidden>true</p>
                             <p class="font-italic text-muted mb-0" id="bookAnnotationLong-@book.Id" style="display: none">@book.LongAnnotation</p>
                             <p class="font-italic text-muted mb-0" id="bookAnnotationShort-@book.Id">@(book.ShortAnnotation + "...")</p>
                             <a id="toggleButton-@book.Id" onclick="toggleText('@book.Id');" href="javascript:void(0);" class="text-secondary">...more</a>
-                            <br />
-                            <p class="text-body font-weight-normal">ISBN: <a href="https://isbndb.com/book/@book.Id" target="_blank">@book.Id</a></p>
+                            <hr />
+                            <p class="text-body font-weight-normal">ISBN: @book.Id</p>
                             <div class="d-flex align-items-center justify-content-between mt-1">
-                                <p class="font-weight-normal">@book.PageCount pages</p>
+                                <p class="font-weight-normal" style="font-size: 12px">@book.PageCount pages</p>
                                 <ul class="list-inline small">
-                                    <li class="list-inline-item m-0 text-secondary"><a href="#">0 reviews</a></li>
-                                    <li class="list-inline-item m-0 text-secondary"><a href="#">0 comments</a></li>
+                                    <li class="list-inline-item m-0 text-secondary">0 comments</li>
                                 </ul>
                             </div>
-                        </div><img class="ml-lg-5 order-1 order-lg-2" src="@book.CoverUrl" alt="Book Cover" width="200">
+                        </div>
+                        <a class="ml-lg-5 order-1 order-lg-2" href="/Books/Details?id=@book.Id">
+                            <img src="@book.CoverUrl" alt="Book Cover" width="200">
+                        </a>
                     </div>
                 </li>
             }

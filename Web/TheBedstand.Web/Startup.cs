@@ -71,6 +71,8 @@
 
             services.AddSingleton(this.configuration);
 
+            services.AddRazorPages().AddRazorRuntimeCompilation();
+
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));

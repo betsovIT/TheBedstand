@@ -10,5 +10,9 @@
         IEnumerable<BookInfoViewModel> All();
 
         Task Create(BookInputModel input, string imageUrl);
+
+        IEnumerable<BookInfoViewModel> GetByGenre(int id);
+
+        BookInfoViewModel GetById(string id);
     }
 }

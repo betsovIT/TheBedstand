@@ -41,7 +41,7 @@
 
         @foreach (var book in Model.Books)
         {
-            <a href="#" class="ml-4 my-2 row">
+            <a href="/Books/Details?id=@book.Id" class="ml-4 my-2 row">
                 <img width="100" src="@book.CoverUrl" />
                 <h5 class="mx-auto my-auto">@book.Title</h5>
             </a>

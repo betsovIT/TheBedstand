@@ -59,5 +59,47 @@
             await this.booksRepository.AddAsync(book);
             await this.booksRepository.SaveChangesAsync();
         }
+
+        public IEnumerable<BookInfoViewModel> GetByGenre(int id)
+        {
+            var result = this.booksRepository
+                 .All()
+                 .Where(x => x.BookGenres.Any(g => g.GenreId == id))
+                 .Select(b => new BookInfoViewModel
+                 {
+                     Title = b.Title,
+                     CoverUrl = b.CoverUrl,
+                     PageCount = b.PageCount,
+                     ShortAnnotation = b.Annotation != null ? b.Annotation.Substring(0, Math.Min(b.Annotation.Length, 100)) : null,
+                     LongAnnotation = b.Annotation,
+                     PublishedOn = b.PublishedOn,
+                     Author = b.Author,
+                     Id = b.Id,
+                     Genres = b.BookGenres.Select(x => x.Genre.Name).ToList(),
+                 }).ToList();
+
+            return result;
+        }
+
+        public BookInfoViewModel GetById(string id)
+        {
+            var result = this.booksRepository
+                 .All()
+                 .Select(b => new BookInfoViewModel
+                 {
+                     Title = b.Title,
+                     CoverUrl = b.CoverUrl,
+                     PageCount = b.PageCount,
+                     ShortAnnotation = b.Annotation != null ? b.Annotation.Substring(0, Math.Min(b.Annotation.Length, 100)) : null,
+                     LongAnnotation = b.Annotation,
+                     PublishedOn = b.PublishedOn,
+                     Author = b.Author,
+                     Id = b.Id,
+                     Genres = b.BookGenres.Select(x => x.Genre.Name).ToList(),
+                 })
+                 .FirstOrDefault(x => x.Id == id);
+
+            return result;
+        }
     }
 }
