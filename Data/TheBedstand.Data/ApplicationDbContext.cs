@@ -21,8 +21,6 @@
         {
         }
 
-        public DbSet<Setting> Settings { get; set; }
-
         public DbSet<Author> Authors { get; set; }
 
         public DbSet<Book> Books { get; set; }
@@ -30,6 +28,8 @@
         public DbSet<BookGenre> BooksGenres { get; set; }
 
         public DbSet<Genre> Genres { get; set; }
+
+        public DbSet<Comment> Comments { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -94,6 +94,12 @@
                 e.HasKey(bg => new { bg.BookId, bg.GenreId });
                 e.HasOne(bg => bg.Book).WithMany(b => b.BookGenres).HasForeignKey(bg => bg.BookId);
                 e.HasOne(bg => bg.Genre).WithMany(g => g.BooksGenre).HasForeignKey(bg => bg.GenreId);
+            });
+
+            builder.Entity<Comment>(e =>
+            {
+                e.HasOne(c => c.Book).WithMany(b => b.Comments).HasForeignKey(c => c.BookId);
+                e.HasOne(c => c.User).WithMany(u => u.Comments).HasForeignKey(c => c.UserId);
             });
         }
 

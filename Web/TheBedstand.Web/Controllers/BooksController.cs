@@ -60,8 +60,10 @@
 
             if (input.Cover != null)
             {
-                imageUrl = await this.cloudinaryService
+                var result = await this.cloudinaryService
                 .UploadPhotoAsync(input.Cover, $"{input.Title + " _cover"}", GlobalConstants.CloudFolderForBookCovers);
+
+                imageUrl = result?.Uri.AbsoluteUri;
             }
 
             await this.booksService.Create(input, imageUrl);

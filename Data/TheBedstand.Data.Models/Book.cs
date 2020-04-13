@@ -11,6 +11,7 @@
         public Book()
         {
             this.BookGenres = new HashSet<BookGenre>();
+            this.Comments = new HashSet<Comment>();
         }
 
         [Required]
@@ -33,5 +34,7 @@
         public Author Author { get; set; }
 
         public ICollection<BookGenre> BookGenres { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
     }
 }

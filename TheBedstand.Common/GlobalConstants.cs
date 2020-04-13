@@ -15,5 +15,9 @@
         public const string CloudFolderForAuthorsPhotos = "author_photos";
 
         public const string CloudFolderForBookCovers = "book_covers";
+
+        public const string CloudFolderForUserPhotos = "user_photos";
+
+        public const string DefaultUserPhoto = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1586768504/user_photos/pngfuel.com_x1nmnm.png";
     }
 }

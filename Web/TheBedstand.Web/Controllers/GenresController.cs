@@ -42,9 +42,9 @@
                 return this.View(input);
             }
 
-            var imageUrl = this.cloudinaryService.UploadPhotoAsync(input.Image, $"{input.Name}", GlobalConstants.CloudFolderForGenrePhotos).GetAwaiter().GetResult();
+            var result = await this.cloudinaryService.UploadPhotoAsync(input.Image, $"{input.Name}", GlobalConstants.CloudFolderForGenrePhotos);
 
-            await this.genresService.CreateAsync(input.Name, input.Description, imageUrl);
+            await this.genresService.CreateAsync(input.Name, input.Description, result?.Uri.AbsoluteUri);
 
             return this.RedirectToAction(nameof(this.All));
         }

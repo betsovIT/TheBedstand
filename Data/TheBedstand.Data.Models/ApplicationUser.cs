@@ -14,6 +14,8 @@
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+
+            this.Comments = new HashSet<Comment>();
         }
 
         // Audit info
@@ -33,5 +35,8 @@
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
         // Additional Info
+        public string AvatarId { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
     }
 }

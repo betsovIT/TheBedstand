@@ -1,21 +1,17 @@
 ﻿namespace TheBedstand.Web.Controllers
 {
-    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
     using TheBedstand.Common;
-    using TheBedstand.Data;
     using TheBedstand.Services;
     using TheBedstand.Services.Data;
     using TheBedstand.Web.InputModels.Authors;
-    using TheBedstand.Web.ViewModels.Authors;
 
     public class AuthorsController : Controller
     {
         private readonly IAuthorsService authorsService;
         private readonly ICloudinaryService cloudinaryService;
-        private readonly ApplicationDbContext db;
 
         public AuthorsController(IAuthorsService authorsService, ICloudinaryService cloudinaryService)
         {
@@ -45,8 +41,10 @@
 
             if (input.Image != null)
             {
-                imageUrl = await this.cloudinaryService
+                var result = await this.cloudinaryService
                 .UploadPhotoAsync(input.Image, $"{input.PersonalName + " " + input.Surname}", GlobalConstants.CloudFolderForAuthorsPhotos);
+
+                imageUrl = result?.Uri.AbsoluteUri;
             }
 
             await this.authorsService.CreateAsync(input, imageUrl);
