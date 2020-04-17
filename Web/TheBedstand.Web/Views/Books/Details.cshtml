@@ -1,8 +1,16 @@
 ﻿@model TheBedstand.Web.ViewModels.Books.BookInfoViewModel
 @using TheBedstand.Common.Helpers
+@using Microsoft.AspNetCore.Identity
+@using TheBedstand.Data.Models
+@using TheBedstand.Services
+@inject UserManager<ApplicationUser> userManager
+@inject ICloudinaryService cloudinaryService
 
-<div class="container mb-2 mt-2" >
-    <div class="card" style="border-radius: 10px">        
+@{
+    var user = await userManager.GetUserAsync(this.User);
+}
+<div class="container mb-2 mt-2">
+    <div class="card" style="border-radius: 10px">
         <div class="card-body">
             <div class="row mb-2">
                 <img class="card-img col-md-3" src="@Model.CoverUrl" />
@@ -29,36 +37,80 @@
             <h4>Add Comment</h4>
             <div class="row">
                 <div class="col-md-2">
-                    <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                    <img src="@await cloudinaryService.GetUrlById(user.AvatarId)" class="img img-rounded img-fluid" />
                 </div>
                 <div class="col-md-10">
+                    <strong>
+                        @user.UserName
+                    </strong>
                     <div class="clearfix"></div>
-                    <textarea class=" border-info w-100 h-100" placeholder="Type your comment here" style="border-radius: 10px"></textarea>
+                    <textarea id="commentContent" class=" border-info w-100 h-75" placeholder="Type your comment here" style="border-radius: 10px"></textarea>
                 </div>
             </div>
         </div>
         <div class="card-footer">
-            <a class="btn btn-primary float-right">Post</a>
+            <button class="btn btn-primary float-right" onclick="postComment()">Post</button>
         </div>
     </div>
 </div>
 
-<div class="container mb-5">
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-2">
-                    <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
-                    <p class="text-secondary text-center">15 Minutes Ago</p>
-                </div>
-                <div class="col-md-10">
-                    <p>
-                        <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
-                    </p>
-                    <div class="clearfix"></div>
-                    <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+<div id="comments">
+
+</div>
+
+<div class="mx-auto">
+    <button class="btn btn-primary" onclick="getComments()">Show Comments</button>
+</div>
+
+
+
+@*<div class="container mb-5">
+        <div class="card" style="border-radius: 10px">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                        <p class="text-secondary text-center">15 Minutes Ago</p>
+                    </div>
+                    <div class="col-md-10">
+                        <p>
+                            <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
+                        </p>
+                        <div class="clearfix"></div>
+                        <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </div>*@
+
+<script>
+    function postComment() {
+
+        var commentData = { content: $("#commentContent").val(), userId: "@userManager.GetUserId(User)", bookId: "@Model.Id" };
+
+        $.ajax({
+            url: "/api/Comments",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(commentData)
+        });
+
+        $("#commentContent").val('');
+    }
+
+    function getComments() {
+
+        $.ajax({
+            url: "/api/Comments?bookId=@Model.Id",
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+
+            }
+
+        })
+    }
+</script>

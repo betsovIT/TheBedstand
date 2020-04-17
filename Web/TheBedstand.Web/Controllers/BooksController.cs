@@ -1,14 +1,10 @@
 ﻿namespace TheBedstand.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
     using TheBedstand.Common;
-    using TheBedstand.Common.Helpers;
     using TheBedstand.Services;
     using TheBedstand.Services.Data;
     using TheBedstand.Web.InputModels.Books;

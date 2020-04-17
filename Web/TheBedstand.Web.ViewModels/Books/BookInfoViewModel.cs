@@ -4,6 +4,7 @@
     using System.Collections.Generic;
 
     using TheBedstand.Data.Models;
+    using TheBedstand.Web.ViewModels.Comments;
 
     public class BookInfoViewModel
     {
@@ -24,5 +25,7 @@
         public Author Author { get; set; }
 
         public IEnumerable<string> Genres { get; set; }
+
+        public IEnumerable<CommentContentViewModel> Comments { get; set; }
     }
 }
