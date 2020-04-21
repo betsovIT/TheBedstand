@@ -1,4 +1,5 @@
 ﻿@model TheBedstand.Web.ViewModels.Genres.AllGenresViewModel
+@using TheBedstand.Common
 @{
     ViewData["Title"] = "All";
 }
@@ -15,6 +16,13 @@
                 </div>
                 <div class="card-footer">
                     <a class="btn btn-light" href="/Books/GetByGenre?id=@genre.Id" role="button">See More</a>
+                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        <div class="d-inline-block">
+                            <button class="btn btn-warning btn-sm">Edit</button>
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 ﻿@model TheBedstand.Web.ViewModels.Books.BookInfoViewModel
 @using TheBedstand.Common.Helpers
+@using TheBedstand.Common
 @using Microsoft.AspNetCore.Identity
 @using TheBedstand.Data.Models
 @using TheBedstand.Services
@@ -13,13 +14,20 @@
     <div class="card" style="border-radius: 10px">
         <div class="card-body">
             <div class="row mb-2">
-                <img class="card-img col-md-3" src="@Model.CoverUrl" />
+                <img class="card-img col-md-3" src="@await cloudinaryService.GetUrlById(Model.CoverUrl)" />
                 <div class="card-text col-md-9">
                     <h3>@Model.Title</h3>
                     <p class="text-dark font-weight-bolder">by <a href="/Authors/Details?id=@Model.Author.Id" class="text-dark font-weight-bolder">@NameHelper.GetFullName(Model.Author.PersonalName, Model.Author.Surname)</a></p>
                     <p><strong>Published on -</strong> @Model.PublishedOn.ToString("dd/MM/yyyy")</p>
                     <p><strong>ISBN - </strong>@Model.Id</p>
                     <p><strong>Pages - </strong>@(Model.PageCount != null ? Model.PageCount.ToString() : "N/A")</p>
+                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        <div class="d-inline-block">
+                            <a class="btn btn-warning" href="/Books/Edit?id=@Model.Id">Edit</a>
+                            <a class="btn btn-danger" href="/Books/Delete?id=@Model.Id">Delete</a>
+                        </div>
+                    }
                 </div>
             </div>
             <div>
@@ -28,6 +36,7 @@
                 </p>
             </div>
         </div>
+        
     </div>
 </div>
 
@@ -37,7 +46,7 @@
             <h4>Add Comment</h4>
             <div class="row">
                 <div class="col-md-2">
-                    <img src="@await cloudinaryService.GetUrlById(user.AvatarId)" class="img img-rounded img-fluid" />
+                    <img src="@await cloudinaryService.GetUrlById(user.AvatarId)" class="card-img" style="max-height:200px; max-width:150px"/>
                 </div>
                 <div class="col-md-10">
                     <strong>
@@ -54,35 +63,33 @@
     </div>
 </div>
 
-<div id="comments">
 
-</div>
-
-<div class="mx-auto">
-    <button class="btn btn-primary" onclick="getComments()">Show Comments</button>
-</div>
-
-
-
-@*<div class="container mb-5">
-        <div class="card" style="border-radius: 10px">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-2">
-                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
-                        <p class="text-secondary text-center">15 Minutes Ago</p>
-                    </div>
-                    <div class="col-md-10">
-                        <p>
-                            <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
-                        </p>
-                        <div class="clearfix"></div>
-                        <p>Lorem Ipsum is simply dummy text of the pr make  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+<div id="allComments">
+    @foreach (var comment in Model.Comments.OrderByDescending(x => x.CreatedOn))
+    {
+        <div class="container mb-2">
+            <div class="card" style="border-radius: 10px">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2">
+                            <img src="@(await cloudinaryService.GetUrlById(comment.UserAvatarId))" class="card-img" style="max-height:200px; max-width:150px" />
+                            <p class="text-secondary text-center">
+                                @(TimeDifferenceHelper.GetTimeDifference(comment.CreatedOn))
+                            </p>
+                        </div>
+                        <div class="col-10">
+                            <p>
+                                <a class="float-left" href="#"><strong>@comment.Username</strong></a>
+                            </p>
+                            <div class="clearfix"></div>
+                            <p>@comment.Content</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>*@
+    }
+</div>
 
 <script>
     function postComment() {
@@ -94,23 +101,16 @@
             type: "POST",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            data: JSON.stringify(commentData)
-        });
-
-        $("#commentContent").val('');
-    }
-
-    function getComments() {
-
-        $.ajax({
-            url: "/api/Comments?bookId=@Model.Id",
-            type: "GET",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
+            data: JSON.stringify(commentData),
             success: function (response) {
 
-            }
-
-        })
+                let imageUrl = response["userAvatarId"];
+                let content = response["content"];
+                let username = response["username"];
+                let createdOn = response["createdOn"];
+                $("#allComments").prepend('<div class="container mb-2"> <div class="card" style="border-radius: 10px"> <div class="card-body"> <div class="row"> <div class="col-2"> <img src="'+imageUrl+'" class="card-img" style="max-height:200px; max-width:150px"/> <p class="text-secondary text-center">Now</p></div><div class="col-10"> <p> <a class="float-left" href="#"><strong>'+username+'</strong></a> </p><div class="clearfix"></div><p>'+content+'</p></div></div></div></div></div>');
+            }            
+        });
+        $("#commentContent").val('');
     }
 </script>

@@ -5,18 +5,22 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
     using TheBedstand.Data.Common.Repositories;
     using TheBedstand.Data.Models;
     using TheBedstand.Web.InputModels.Books;
     using TheBedstand.Web.ViewModels.Books;
+    using TheBedstand.Web.ViewModels.Comments;
 
     public class BooksService : IBooksService
     {
         private readonly IDeletableEntityRepository<Book> booksRepository;
+        private readonly IDeletableEntityRepository<Comment> commentRepository;
 
-        public BooksService(IDeletableEntityRepository<Book> booksRepository)
+        public BooksService(IDeletableEntityRepository<Book> booksRepository, IDeletableEntityRepository<Comment> commentRepository)
         {
             this.booksRepository = booksRepository;
+            this.commentRepository = commentRepository;
         }
 
         public IEnumerable<BookInfoViewModel> All()
@@ -96,10 +100,46 @@
                      Author = b.Author,
                      Id = b.Id,
                      Genres = b.BookGenres.Select(x => x.Genre.Name).ToList(),
+                     Comments = this.commentRepository.All().Where(x => x.BookId == b.Id).Select(x => new CommentContentViewModel
+                     {
+                         Content = x.Content,
+                         CreatedOn = x.CreatedOn,
+                         UserAvatarId = x.User.AvatarId,
+                         Username = x.User.UserName,
+                     }),
                  })
                  .FirstOrDefault(x => x.Id == id);
 
             return result;
+        }
+
+        public Book GetByIdAsDbModel(string id)
+        {
+            var result = this.booksRepository
+                 .All()
+                 .Include(x => x.Author)
+                 .FirstOrDefault(x => x.Id == id);
+
+            return result;
+        }
+
+        public async Task PersistBookToDb(Book book, int[] genreIds)
+        {
+            if (genreIds != null)
+            {
+                var bookGenres = new HashSet<BookGenre>();
+
+                foreach (int genreId in genreIds)
+                {
+                    var bookGenre = new BookGenre { BookId = book.Id, GenreId = genreId };
+
+                    bookGenres.Add(bookGenre);
+                }
+
+                book.BookGenres = bookGenres;
+            }
+
+            await this.booksRepository.SaveChangesAsync();
         }
     }
 }

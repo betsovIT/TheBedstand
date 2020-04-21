@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<TheBedstand.Web.ViewModels.Books.BookInfoViewModel>
+@using TheBedstand.Services
+@inject ICloudinaryService cloudinaryService
 @namespace TheBedstand.Common.Helpers
 @{
     ViewData["Title"] = "All";
@@ -28,7 +30,7 @@
                             </div>
                         </div>
                         <a class="ml-lg-5 order-1 order-lg-2" href="/Books/Details?id=@book.Id">
-                            <img src="@book.CoverUrl" alt="Book Cover" width="200">
+                            <img src="@await cloudinaryService.GetUrlById(@book.CoverUrl)" alt="Book Cover" width="200">
                         </a>
                     </div>
                 </li>
@@ -50,7 +52,7 @@
         if (isHidden == "true") {
             $("#" + bookAnnotationLongId).show();
             $("#" + bookAnnotationShortId).hide();
-            $("#" + toggleButtonId).text("(less)");            
+            $("#" + toggleButtonId).text("(less)");
             $("#" + isAnnotationHiddenId).text(false);
         } else {
             $("#" + bookAnnotationLongId).hide();

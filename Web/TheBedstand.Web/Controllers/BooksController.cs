@@ -59,7 +59,7 @@
                 var result = await this.cloudinaryService
                 .UploadPhotoAsync(input.Cover, $"{input.Title + " _cover"}", GlobalConstants.CloudFolderForBookCovers);
 
-                imageUrl = result?.Uri.AbsoluteUri;
+                imageUrl = result?.PublicId;
             }
 
             await this.booksService.Create(input, imageUrl);
@@ -79,6 +79,67 @@
             var model = this.booksService.GetById(id);
 
             return this.View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(string id)
+        {
+            var book = this.booksService.GetByIdAsDbModel(id);
+            var model = new BookInputModel()
+            {
+                Annotation = book.Annotation,
+                ISBN = book.Id,
+                AuthorId = book.Author.Id,
+                PageCount = book.PageCount,
+                PublishedOn = book.PublishedOn,
+                Title = book.Title,
+                GenreIds = book.BookGenres.Select(x => x.GenreId).ToArray(),
+            };
+
+            this.AttachSelectListsToBookInputModel(model);
+
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(BookInputModel input)
+        {
+            var dbBook = this.booksService.GetByIdAsDbModel(input.ISBN);
+
+            this.ModelState.Remove("GenreIds");
+
+            if (!this.ModelState.IsValid)
+            {
+                this.AttachSelectListsToBookInputModel(input);
+                return this.View(input);
+            }
+
+            if (!this.booksService.All().Any(x => x.Id == input.ISBN))
+            {
+                this.AttachSelectListsToBookInputModel(input);
+                return this.View(input);
+            }
+
+            if (input.Cover != null)
+            {
+                await this.cloudinaryService.Delete(dbBook.CoverUrl);
+                var uploadResult = await this.cloudinaryService.UploadPhotoAsync(input.Cover, $"{input.Title + " _cover"}", GlobalConstants.CloudFolderForBookCovers);
+
+                if (uploadResult.PublicId != null)
+                {
+                    dbBook.CoverUrl = uploadResult.PublicId;
+                }
+            }
+
+            dbBook.Annotation = input.Annotation;
+            dbBook.PageCount = input.PageCount;
+            dbBook.PublishedOn = input.PublishedOn;
+            dbBook.Title = input.Title;
+            dbBook.AuthorId = input.AuthorId;
+
+            await this.booksService.PersistBookToDb(dbBook, input.GenreIds);
+
+            return this.RedirectToAction("Details", new { id = dbBook.Id });
         }
 
         private BookInputModel AttachSelectListsToBookInputModel(BookInputModel input)

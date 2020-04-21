@@ -24,6 +24,7 @@
         [Range(1, 10000)]
         public int? PageCount { get; set; }
 
+        [Required]
         public string Annotation { get; set; }
 
         public string CoverUrl { get; set; }
