@@ -20,5 +20,7 @@
         Book GetByIdAsDbModel(string id);
 
         Task PersistBookToDb(Book book, int[] genreIds);
+
+        Task<bool> DeleteBook(string id);
     }
 }

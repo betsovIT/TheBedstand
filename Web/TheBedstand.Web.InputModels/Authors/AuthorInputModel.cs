@@ -6,10 +6,13 @@
     using System.Text;
 
     using Microsoft.AspNetCore.Http;
+    using TheBedstand.Data.Models.Enums;
     using TheBedstand.Web.ViewModels.Authors;
 
     public class AuthorInputModel
     {
+        public int Id { get; set; }
+
         [MinLength(2)]
         [MaxLength(20)]
         public string PersonalName { get; set; }
@@ -27,7 +30,7 @@
         public int? PseudonymForId { get; set; }
 
         [Required]
-        public int Country { get; set; }
+        public Country Country { get; set; }
 
         public IFormFile Image { get; set; }
 

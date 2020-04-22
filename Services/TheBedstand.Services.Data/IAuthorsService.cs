@@ -14,6 +14,8 @@
 
         IEnumerable<AuthorBasicInfoModel> GetAuthorBasicInfo();
 
-        AuthorDetailsViewModel GetById(int id);
+        Author GetById(int id);
+
+        Task PersistEditedAuthorToDb();
     }
 }

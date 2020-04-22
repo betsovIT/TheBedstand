@@ -54,31 +54,16 @@
             return result;
         }
 
-        public AuthorDetailsViewModel GetById(int id)
+        public Author GetById(int id)
         {
-            var author = this.authorRepository.All().Include(x => x.Books).ThenInclude(x => x.BookGenres).ThenInclude(x => x.Genre).FirstOrDefault(x => x.Id == id);
+            var author = this.authorRepository.All().Include(x => x.Books).ThenInclude(x => x.BookGenres).ThenInclude(x => x.Genre).Include(x => x.PseudonymFor).FirstOrDefault(x => x.Id == id);
 
-            var country = EnumDescriptionHelper.GetEnumValueDescription<Country>(author.Country);
+            return author;
+        }
 
-            var result = new AuthorDetailsViewModel
-            {
-                PersonalName = author.PersonalName,
-                Surname = author.Surname,
-                DateOfBirth = author.DateOfBirth,
-                Country = country,
-                ImageUrl = author.ImageUrl,
-                Biography = author.Biography,
-                PseudonymForAuthor = author.PseudonymFor == null ? "N/A" : NameHelper.GetFullName(author.PseudonymFor.PersonalName, author.PseudonymFor.Surname),
-                Genres = author.Books.SelectMany(b => b.BookGenres).Select(bg => bg.Genre?.Name).Distinct().ToArray(),
-                Books = author.Books.Select(b => new BookAuthorPageViewModel
-                {
-                    Id = b.Id,
-                    Title = b.Title,
-                    CoverUrl = b.CoverUrl,
-                }).ToList(),
-            };
-
-            return result;
+        public async Task PersistEditedAuthorToDb()
+        {
+            await this.authorRepository.SaveChangesAsync();
         }
     }
 }

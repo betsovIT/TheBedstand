@@ -142,6 +142,18 @@
             return this.RedirectToAction("Details", new { id = dbBook.Id });
         }
 
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (await this.booksService.DeleteBook(id))
+            {
+                return this.RedirectToAction("All", "Books");
+            }
+            else
+            {
+                return this.RedirectToAction("Details", new { id = id });
+            }
+        }
+
         private BookInputModel AttachSelectListsToBookInputModel(BookInputModel input)
         {
             var authorsForSelectList = this.authorsService.GetAuthorBasicInfo().Select(x => new AuthorBasicInfoModel

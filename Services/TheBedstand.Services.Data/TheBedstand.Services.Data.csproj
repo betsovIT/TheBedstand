@@ -25,6 +25,7 @@
     <ProjectReference Include="..\..\Web\TheBedstand.Web.InputModels\TheBedstand.Web.InputModels.csproj" />
     <ProjectReference Include="..\..\Web\TheBedstand.Web.ViewModels\TheBedstand.Web.ViewModels.csproj" />
     <ProjectReference Include="..\TheBedstand.Services.Mapping\TheBedstand.Services.Mapping.csproj" />
+    <ProjectReference Include="..\TheBedstand.Services\TheBedstand.Services.csproj" />
   </ItemGroup>
 
 </Project>

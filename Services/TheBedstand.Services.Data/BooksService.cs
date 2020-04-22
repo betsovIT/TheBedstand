@@ -8,6 +8,7 @@
     using Microsoft.EntityFrameworkCore;
     using TheBedstand.Data.Common.Repositories;
     using TheBedstand.Data.Models;
+    using TheBedstand.Services;
     using TheBedstand.Web.InputModels.Books;
     using TheBedstand.Web.ViewModels.Books;
     using TheBedstand.Web.ViewModels.Comments;
@@ -16,11 +17,13 @@
     {
         private readonly IDeletableEntityRepository<Book> booksRepository;
         private readonly IDeletableEntityRepository<Comment> commentRepository;
+        private readonly ICloudinaryService cloudinaryService;
 
-        public BooksService(IDeletableEntityRepository<Book> booksRepository, IDeletableEntityRepository<Comment> commentRepository)
+        public BooksService(IDeletableEntityRepository<Book> booksRepository, IDeletableEntityRepository<Comment> commentRepository, ICloudinaryService cloudinaryService)
         {
             this.booksRepository = booksRepository;
             this.commentRepository = commentRepository;
+            this.cloudinaryService = cloudinaryService;
         }
 
         public IEnumerable<BookInfoViewModel> All()
@@ -62,6 +65,29 @@
 
             await this.booksRepository.AddAsync(book);
             await this.booksRepository.SaveChangesAsync();
+        }
+
+        public async Task<bool> DeleteBook(string id)
+        {
+            var book = this.booksRepository.All().FirstOrDefault(x => x.Id == id);
+            var comments = this.commentRepository.All().Where(x => x.BookId == book.Id);
+
+            if (book != null)
+            {
+                foreach (var comment in comments)
+                {
+                    this.commentRepository.HardDelete(comment);
+                }
+
+                this.booksRepository.HardDelete(book);
+                await this.booksRepository.SaveChangesAsync();
+
+                await this.cloudinaryService.Delete(book.CoverUrl);
+
+                return true;
+            }
+
+            return false;
         }
 
         public IEnumerable<BookInfoViewModel> GetByGenre(int id)

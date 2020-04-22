@@ -8,6 +8,8 @@
 
     public class AuthorDetailsViewModel
     {
+        public int Id { get; set; }
+
         public string PersonalName { get; set; }
 
         public string Surname { get; set; }
