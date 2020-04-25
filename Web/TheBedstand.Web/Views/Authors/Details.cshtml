@@ -1,13 +1,11 @@
 ﻿@model TheBedstand.Web.ViewModels.Authors.AuthorDetailsViewModel
 @using TheBedstand.Common.Helpers
 @using TheBedstand.Common
-@using TheBedstand.Services
-@inject ICloudinaryService  clouidnaryService
 
-<div class="bg-gray my-2">
+<div class="bg-gray my-2 pb-2">
     <div class="row">
         <div class="col-3 py-2 mx-2">
-            <img src="@await clouidnaryService.GetUrlById(Model.ImageUrl)" class="w-100" />
+            <img src="@Model.ImageUrl" class="w-100" />
         </div>
         <div class="col-7">
             <h3>@NameHelper.GetFullName(Model.PersonalName, Model.Surname)</h3>
@@ -54,7 +52,7 @@
     @foreach (var book in Model.Books)
     {
         <a href="/Books/Details?id=@book.Id" class="ml-4 my-2 row">
-            <img width="100" src="@await clouidnaryService.GetUrlById(book.CoverUrl)" />
+            <img width="100" src="@book.CoverUrl" />
             <h5 class="mx-auto my-auto">@book.Title</h5>
         </a>
     }

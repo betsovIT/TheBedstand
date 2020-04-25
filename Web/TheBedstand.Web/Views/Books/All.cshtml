@@ -1,7 +1,5 @@
 ﻿@model IEnumerable<TheBedstand.Web.ViewModels.Books.BookInfoViewModel>
-@using TheBedstand.Services
-@inject ICloudinaryService cloudinaryService
-@namespace TheBedstand.Common.Helpers
+@using TheBedstand.Common.Helpers
 @{
     ViewData["Title"] = "All";
 }
@@ -25,12 +23,12 @@
                             <div class="d-flex align-items-center justify-content-between mt-1">
                                 <p class="font-weight-normal" style="font-size: 12px">@book.PageCount pages</p>
                                 <ul class="list-inline small">
-                                    <li class="list-inline-item m-0 text-secondary">0 comments</li>
+                                    <li class="list-inline-item m-0 text-secondary">@(book.Comments != null ? book.Comments.Count() : 0) comments</li>
                                 </ul>
                             </div>
                         </div>
                         <a class="ml-lg-5 order-1 order-lg-2" href="/Books/Details?id=@book.Id">
-                            <img src="@await cloudinaryService.GetUrlById(@book.CoverUrl)" alt="Book Cover" width="200">
+                            <img src="@book.CoverUrl" alt="Book Cover" width="200">
                         </a>
                     </div>
                 </li>

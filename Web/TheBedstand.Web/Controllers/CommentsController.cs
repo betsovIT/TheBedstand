@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
+    using System.Text.Json;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
@@ -29,28 +31,29 @@
             this.cloudinaryService = cloudinaryService;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<CommentContentViewModel>> GetComments(string bookId)
-        {
-            var result = this.commentsService.GetBookComments(bookId).ToList();
-
-            return result;
-        }
-
         [HttpPost]
         [ProducesResponseType(201, Type = typeof(CommentContentViewModel))]
-        public async Task<ActionResult<CommentContentViewModel>> Create(CommentInputModel input)
+        public async Task<ActionResult<CommentContentViewModel>> CreateComment(CommentInputModel input)
         {
             var comment = await this.commentsService.Create(input);
             var user = this.userManager.FindByIdAsync(input.UserId);
 
             var result = new CommentContentViewModel
             {
+                Id = comment.Id,
                 Content = comment.Content,
                 Username = user.Result.UserName,
-                UserAvatarId = await this.cloudinaryService.GetUrlById(user.Result.AvatarId),
+                UserAvatarUrl = await this.cloudinaryService.GetUrlById(user.Result.AvatarId),
                 CreatedOn = DateTime.UtcNow,
             };
+
+            return this.Ok(result);
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteComment(CommentIdInputModel input)
+        {
+            var result = await this.commentsService.Delete(input.Id);
 
             return this.Ok(result);
         }

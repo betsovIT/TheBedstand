@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using CloudinaryDotNet.Actions;
     using Microsoft.EntityFrameworkCore;
     using TheBedstand.Data.Common.Repositories;
     using TheBedstand.Data.Models;
@@ -33,27 +34,37 @@
                  .Select(b => new BookInfoViewModel
                  {
                      Title = b.Title,
-                     CoverUrl = b.CoverUrl,
                      PageCount = b.PageCount,
+                     CoverUrl = b.CoverUrl,
                      ShortAnnotation = b.Annotation != null ? b.Annotation.Substring(0, Math.Min(b.Annotation.Length, 100)) : null,
                      LongAnnotation = b.Annotation,
                      PublishedOn = b.PublishedOn,
                      Author = b.Author,
                      Id = b.Id,
                      Genres = b.BookGenres.Select(x => x.Genre.Name).ToList(),
-                 }).ToList();
+                     Comments = this.commentRepository.All().Where(x => x.BookId == b.Id).Select(x => new CommentContentViewModel
+                     {
+                         Id = x.Id,
+                         Content = x.Content,
+                         CreatedOn = x.CreatedOn,
+                         UserAvatarUrl = x.User.AvatarUrl,
+                         Username = x.User.UserName,
+                     }),
+                 })
+                 .ToList();
 
             return result;
         }
 
-        public async Task Create(BookInputModel input, string imageUrl)
+        public async Task Create(BookInputModel input, ImageUploadResult result)
         {
             var book = new Book
             {
                 Title = input.Title,
                 Id = input.ISBN,
                 AuthorId = input.AuthorId,
-                CoverUrl = imageUrl,
+                CoverId = result?.PublicId,
+                CoverUrl = result?.Uri?.AbsoluteUri,
                 PageCount = input.PageCount,
                 Annotation = input.Annotation,
             };
@@ -128,9 +139,10 @@
                      Genres = b.BookGenres.Select(x => x.Genre.Name).ToList(),
                      Comments = this.commentRepository.All().Where(x => x.BookId == b.Id).Select(x => new CommentContentViewModel
                      {
+                         Id = x.Id,
                          Content = x.Content,
                          CreatedOn = x.CreatedOn,
-                         UserAvatarId = x.User.AvatarId,
+                         UserAvatarUrl = x.User.AvatarUrl,
                          Username = x.User.UserName,
                      }),
                  })

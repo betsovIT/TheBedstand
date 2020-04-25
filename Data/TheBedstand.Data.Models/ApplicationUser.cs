@@ -37,6 +37,8 @@
         // Additional Info
         public string AvatarId { get; set; }
 
+        public string AvatarUrl { get; set; }
+
         public ICollection<Comment> Comments { get; set; }
     }
 }

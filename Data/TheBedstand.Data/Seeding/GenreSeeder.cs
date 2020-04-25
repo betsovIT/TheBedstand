@@ -25,6 +25,7 @@
                 {
                     Name = "Science Fiction",
                     Description = "Science fiction is a genre that typically deals with imaginative and futuristic concepts such as advanced science and technology, space exploration, time travel, parallel universes, and extraterrestrial life.",
+                    ImageId = "genre_photos/foundation-asimov-seldon-1200x640_bhrfuu",
                     ImageUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584025855/genre_photos/foundation-asimov-seldon-1200x640_bhrfuu.jpg",
                 },
 
@@ -32,6 +33,7 @@
                 {
                     Name = "Fantasy",
                     Description = "Fantasy is a genre of speculative fiction set in a fictional universe, often inspired by real world myth and folklore. Its roots are in oral traditions, which then became fantasy literature and drama.",
+                    ImageId = "genre_photos/Morgoth_Fingolfin_m0tjn4",
                     ImageUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584027014/genre_photos/Morgoth_Fingolfin_m0tjn4.jpg",
                 },
 
@@ -39,6 +41,7 @@
                 {
                     Name = "Biography",
                     Description = "Biography is a literary genre that portrays the experiences of all these events occurring in the life of a person, mostly in a chronological order.",
+                    ImageId = "genre_photos/9780190262716_o1kzl8",
                     ImageUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584026838/genre_photos/9780190262716_o1kzl8.jpg",
                 },
 
@@ -46,6 +49,7 @@
                 {
                     Name = "Mistery",
                     Description = "Mystery is a genre of literature whose stories focus on a puzzling crime, situation, or circumstance that needs to be solved.",
+                    ImageId = "genre_photos/12087039_1010378148984719_4724957302230297183_o_og3uye",
                     ImageUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584028264/genre_photos/12087039_1010378148984719_4724957302230297183_o_og3uye.jpg",
                 },
 
@@ -53,6 +57,7 @@
                 {
                     Name = "Science",
                     Description = "Books regarding a specific scientific consept, problem or an entire scientific field including ones aimed at a more generalized public.",
+                    ImageId = "genre_photos/March_for_Science_tev2ys",
                     ImageUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584028454/genre_photos/March_for_Science_tev2ys.png",
                 },
 
@@ -60,6 +65,7 @@
                 {
                     Name = "Academic",
                     Description = "Text books for teaching purposes or scientific papers for circulation between the academic community.",
+                    ImageId = "genre_photos/PPCJ5POEBNBU3E7JR56RJ26NDY_il5nia",
                     ImageUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584028822/genre_photos/PPCJ5POEBNBU3E7JR56RJ26NDY_il5nia.jpg",
                 },
 
@@ -67,6 +73,7 @@
                 {
                     Name = "Philosophy",
                     Description = "Books in the philosophy genre are about the fundamental nature of knowledge, reality, and existence as an academic discipline.",
+                    ImageId = "genre_photos/school_of_athens1348180322150_asuce0",
                     ImageUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584028918/genre_photos/school_of_athens1348180322150_asuce0.jpg",
                 },
 
@@ -74,6 +81,7 @@
                 {
                     Name = "Religion",
                     Description = "Books in the religion n genre are about the organization of collective beliefs, culture, world views, meaning of life, the origins of life, and the universe as a whole, usually under a god or deity",
+                    ImageId = "genre_photos/RELIGIONES_yizp7i.png",
                     ImageUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584029103/genre_photos/RELIGIONES_yizp7i.png",
                 },
 
@@ -81,6 +89,7 @@
                 {
                     Name = "Romance",
                     Description = "Two basic elements comprise every romance novel: a central love story and an emotionally satisfying and optimistic ending.",
+                    ImageId = "genre_photos/Wm._Blair_Leighton_s_The_End_of_Song_cb4adv",
                     ImageUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584029201/genre_photos/Wm._Blair_Leighton_s_The_End_of_Song_cb4adv.jpg",
                 },
 
@@ -88,6 +97,7 @@
                 {
                     Name = "Crime",
                     Description = "The crime genre includes the broad selection of books on criminals and the court system, but the most common focus is investigations and sleuthing.",
+                    ImageId = "genre_photos/jack-the-ripper-2_wfru1e",
                     ImageUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584029280/genre_photos/jack-the-ripper-2_wfru1e.jpg",
                 },
 
@@ -95,6 +105,7 @@
                 {
                     Name = "History",
                     Description = "The history genre consists of books about historical events, persons and the consquences of them.",
+                    ImageId = "genre_photos/fall-of-carthage_fhngp9",
                     ImageUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584029411/genre_photos/fall-of-carthage_fhngp9.jpg",
                 },
 
@@ -102,6 +113,7 @@
                 {
                     Name = "Children's",
                     Description = "Books aimed at children or people in early adolescense.",
+                    ImageId = "genre_photos/41DfYlAxn6L._SX355_BO1_204_203_200__ixmjue",
                     ImageUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584029469/genre_photos/41DfYlAxn6L._SX355_BO1_204_203_200__ixmjue.jpg",
                 },
             };

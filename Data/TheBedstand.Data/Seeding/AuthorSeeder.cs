@@ -20,6 +20,7 @@
                 DateOfBirth = new DateTime(1892, 1, 3),
                 Country = Country.GB,
                 ImageUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584093634/author_photos/656983_bpzsbz.jpg",
+                ImageId = "author_photos/656983_bpzsbz",
             },
 
             // Id will be set to 2
@@ -30,7 +31,8 @@
                 Biography = "James Clavell, born Charles Edmund Dumaresq Clavell was a British novelist, screenwriter, director and World War II veteran and POW. Clavell is best known for his epic Asian Saga series of novels and their televised adaptations, along with such films as The Great Escape, The Fly and To Sir, with Love.",
                 DateOfBirth = new DateTime(1924, 10, 10),
                 Country = Country.GB,
-                ImageUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584093854/author_photos/6417_meamfp.jpg",
+                ImageUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584093854/author_photos/656983_bpzsbz.jpg",
+                ImageId = "author_photos/656983_bpzsbz",
             },
 
             // Id will be set to 3
@@ -42,6 +44,7 @@
                 DateOfBirth = new DateTime(1920, 1, 2),
                 Country = Country.US,
                 ImageUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584093918/author_photos/16667_cqsabc.jpg",
+                ImageId = "author_photos/16667_cqsabc",
             },
 
             // Id will be set to 4
@@ -57,6 +60,7 @@
                 DateOfBirth = new DateTime(1947, 9, 21),
                 Country = Country.US,
                 ImageUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584094341/author_photos/3389_m5mbsw.jpg",
+                ImageId = "author_photos/3389_m5mbsw",
             },
         };
 

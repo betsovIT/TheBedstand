@@ -35,18 +35,21 @@
             return comment;
         }
 
-        public IEnumerable<CommentContentViewModel> GetBookComments(string bookId)
+        public async Task<bool> Delete(string id)
         {
-            var result = this.commentRepository.All()
-                .Select(x => new CommentContentViewModel
-                {
-                    Content = x.Content,
-                    Username = x.User.UserName,
-                    UserAvatarId = x.User.AvatarId,
-                    CreatedOn = x.CreatedOn,
-                }).AsEnumerable();
+            var comment = this.commentRepository.All().FirstOrDefault(x => x.Id == id);
 
-            return result;
+            this.commentRepository.Delete(comment);
+            var result = await this.commentRepository.SaveChangesAsync();
+
+            if (result > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

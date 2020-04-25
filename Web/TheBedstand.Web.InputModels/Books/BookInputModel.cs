@@ -39,7 +39,7 @@
         [Required]
         public int[] GenreIds { get; set; }
 
-        public GenreForSelectListViewModel[] GenresForSelectList { get; set; }
+        public GenreForSelectListModel[] GenresForSelectList { get; set; }
 
         public AuthorBasicInfoModel[] AuthorsForSelectList { get; set; }
     }

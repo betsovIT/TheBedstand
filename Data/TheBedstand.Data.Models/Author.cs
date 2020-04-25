@@ -36,6 +36,8 @@
 
         public string ImageUrl { get; set; }
 
+        public string ImageId { get; set; }
+
         public ICollection<Book> Books { get; set; }
     }
 }

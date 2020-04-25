@@ -11,6 +11,6 @@
     {
         Task<Comment> Create(CommentInputModel input);
 
-        IEnumerable<CommentContentViewModel> GetBookComments(string bookId);
+        Task<bool> Delete(string id);
     }
 }

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<TheBedstand.Web.ViewModels.Administrators.AdminListViewModel>
+@using TheBedstand.Common;
+
+@if (TempData["result"] != null)
+{
+    if (TempData["result"].ToString() == "Success!")
+    {
+        <div class="alert alert-success my-2" role="alert">
+            Admin successfully deleted.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning my-2" role="alert">
+            Admin was not deleted.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+}
+
+<div>
+    @foreach (var admin in Model)
+    {
+        <div class="row py-1 my-1 border border-dark bg-gray">
+            <p class="col-6 text-center font-weight-bold my-auto">
+                @admin.Username
+            </p>
+            <a class="btn btn-danger col-2" href="/Administrators/Delete?id=@admin.Id">DELETE</a>
+        </div>
+    }
+
+</div>

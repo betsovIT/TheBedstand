@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using CloudinaryDotNet.Actions;
     using TheBedstand.Data.Models;
     using TheBedstand.Web.InputModels.Books;
     using TheBedstand.Web.ViewModels.Books;
@@ -11,7 +12,7 @@
     {
         IEnumerable<BookInfoViewModel> All();
 
-        Task Create(BookInputModel input, string imageUrl);
+        Task Create(BookInputModel input, ImageUploadResult result);
 
         IEnumerable<BookInfoViewModel> GetByGenre(int id);
 

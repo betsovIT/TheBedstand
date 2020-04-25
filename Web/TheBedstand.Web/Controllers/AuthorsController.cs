@@ -43,17 +43,13 @@
                 return this.View(input);
             }
 
-            string imageUrl = null;
-
             if (input.Image != null)
             {
                 var result = await this.cloudinaryService
                 .UploadPhotoAsync(input.Image, $"{input.PersonalName + " " + input.Surname}", GlobalConstants.CloudFolderForAuthorsPhotos);
 
-                imageUrl = result?.PublicId;
+                await this.authorsService.CreateAsync(input, result);
             }
-
-            await this.authorsService.CreateAsync(input, imageUrl);
 
             return this.RedirectToAction("Index", "Home");
         }
@@ -143,6 +139,14 @@
             await this.authorsService.PersistEditedAuthorToDb();
 
             return this.RedirectToAction("Details", new { id = author.Id });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.authorsService.Delete(id);
+
+            return this.RedirectToAction("All");
         }
 
         private AuthorInputModel AttachAuthorsForSelectListToInputModel(AuthorInputModel input)

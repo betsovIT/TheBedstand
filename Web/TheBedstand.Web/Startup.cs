@@ -50,6 +50,8 @@
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                options.User.RequireUniqueEmail = true;
                 options.Password.RequireDigit = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;

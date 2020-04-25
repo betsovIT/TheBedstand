@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using CloudinaryDotNet.Actions;
     using Microsoft.EntityFrameworkCore;
     using TheBedstand.Common.Helpers;
     using TheBedstand.Data.Common.Repositories;
@@ -16,13 +17,15 @@
     public class AuthorsService : IAuthorsService
     {
         private readonly IDeletableEntityRepository<Author> authorRepository;
+        private readonly IBooksService booksService;
 
-        public AuthorsService(IDeletableEntityRepository<Author> authorRepository)
+        public AuthorsService(IDeletableEntityRepository<Author> authorRepository, IBooksService booksService)
         {
             this.authorRepository = authorRepository;
+            this.booksService = booksService;
         }
 
-        public async Task CreateAsync(AuthorInputModel input, string imageUrl)
+        public async Task CreateAsync(AuthorInputModel input, ImageUploadResult result)
         {
             var author = new Author
             {
@@ -30,12 +33,26 @@
                 Surname = input.Surname,
                 Biography = input.Biography,
                 DateOfBirth = input.DateOfBirth,
-                Country = (Country)input.Country,
+                Country = input.Country,
                 PseudonymForId = input.PseudonymForId,
-                ImageUrl = imageUrl,
+                ImageUrl = result?.Uri?.AbsoluteUri,
+                ImageId = result?.PublicId,
             };
 
             await this.authorRepository.AddAsync(author);
+            await this.authorRepository.SaveChangesAsync();
+        }
+
+        public async Task Delete(int id)
+        {
+            var author = this.authorRepository.All().Include(x => x.Books).FirstOrDefault(x => x.Id == id);
+
+            foreach (var book in author.Books)
+            {
+                await this.booksService.DeleteBook(book.Id);
+            }
+
+            this.authorRepository.Delete(author);
             await this.authorRepository.SaveChangesAsync();
         }
 

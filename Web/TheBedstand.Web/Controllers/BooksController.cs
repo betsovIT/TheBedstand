@@ -52,17 +52,13 @@
                 return this.View(input);
             }
 
-            string imageUrl = null;
-
             if (input.Cover != null)
             {
                 var result = await this.cloudinaryService
                 .UploadPhotoAsync(input.Cover, $"{input.Title + " _cover"}", GlobalConstants.CloudFolderForBookCovers);
 
-                imageUrl = result?.PublicId;
+                await this.booksService.Create(input, result);
             }
-
-            await this.booksService.Create(input, imageUrl);
 
             return this.RedirectToAction("Index", "Home");
         }
@@ -163,7 +159,7 @@
                 Surname = x.Surname,
             });
 
-            var genresForSelectList = this.genresService.GetGenresForSelectList().Select(x => new GenreForSelectListViewModel
+            var genresForSelectList = this.genresService.GetGenresForSelectList().Select(x => new GenreForSelectListModel
             {
                 Id = x.Id,
                 Name = x.Name,

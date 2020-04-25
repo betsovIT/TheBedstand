@@ -26,6 +26,8 @@
             {
                 UserName = configuration["Root:Username"],
                 Email = configuration["Root:Email"],
+                AvatarId = "user_photos/Name-tag-admin-1000_bqr96j",
+                AvatarUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1587712875/user_photos/Name-tag-admin-1000_bqr96j.webp",
             };
 
             var password = configuration["Root:Password"];

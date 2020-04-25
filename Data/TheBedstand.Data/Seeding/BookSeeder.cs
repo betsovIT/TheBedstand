@@ -28,7 +28,8 @@
                 "When Bilbo reached his eleventy-first birthday he disappeared, bequeathing to his young cousin Frodo the Ruling Ring and a perilous quest: to journey across Middle-earth, deep into the shadow of the Dark Lord, and destroy the Ring by casting it into the Cracks of Doom." +
                 "The Lord of the Rings tells of the great quest undertaken by Frodo and the Fellowship of the Ring: Gandalf the Wizard; the hobbits Merry, Pippin, and Sam; Gimli the Dwarf; Legolas the Elf; Boromir of Gondor; and a tall, mysterious stranger called Strider",
                 PageCount = 1216,
-                CoverUrl = "book_covers/8134AkhQJgL_ykzfyd",
+                CoverUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584092658/book_covers/8134AkhQJgL_ykzfyd.jpg",
+                CoverId = "book_covers/8134AkhQJgL_ykzfyd",
                 AuthorId = dbContext.Authors.First(x => x.PersonalName == "J. R. R." && x.Surname == "Tolkien").Id,
                 BookGenres = new HashSet<BookGenre>
                 {
@@ -50,7 +51,8 @@
                 Annotation = @"After Englishman John Blackthorne is lost at sea, he awakens in a place few Europeans know of and even fewer have seen--Nippon. Thrust into the closed society that is seventeenth-century Japan, a land where the line between life and death is razor-thin, Blackthorne must negotiate not only a foreign people, with unknown customs and language, but also his own definitions of morality, truth, and freedom. As internal political strife and a clash of cultures lead to seemingly inevitable conflict, Blackthorne's loyalty and strength of character are tested by both passion and loss, and he is torn between two worlds that will each be forever changed." + "\n" +
                 @"Powerful and engrossing, capturing both the rich pageantry and stark realities of life in feudal Japan, Shōgun is a critically acclaimed powerhouse of a book. Heart-stopping, edge-of-your-seat action melds seamlessly with intricate historical detail and raw human emotion. Endlessly compelling, this sweeping saga captivated the world to become not only one of the best-selling novels of all time but also one of the highest-rated television miniseries, as well as inspiring a nationwide surge of interest in the culture of Japan. Shakespearean in both scope and depth, Shōgun is, as the New York Times put it, ""...not only something you read--you live it."" Provocative, absorbing, and endlessly fascinating, there is only one: Shōgun.",
                 PageCount = 1152,
-                CoverUrl = "book_covers/shogun-11_j9p8zs",
+                CoverUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584096198/book_covers/shogun-11_j9p8zs.jpg",
+                CoverId = "book_covers/shogun-11_j9p8zs",
                 AuthorId = dbContext.Authors.First(x => x.PersonalName == "James" && x.Surname == "Clavell").Id,
                 BookGenres = new HashSet<BookGenre>
                 {
@@ -73,7 +75,8 @@
                 Annotation = "For twelve thousand years the Galactic Empire has ruled supreme. Now it is dying. But only Hari Seldon, creator of the revolutionary science of psychohistory, can see into the future -- to a dark age of ignorance, barbarism, and warfare that will last thirty thousand years. To preserve knowledge and save mankind, Seldon gathers the best minds in the Empire -- both scientists and scholars -- and brings them to a bleak planet at the edge of the Galaxy to serve as a beacon of hope for a future generations. He calls his sanctuary the Foundation." + "\n" +
                 "But soon the fledgling Foundation finds itself at the mercy of corrupt warlords rising in the wake of the receding Empire. Mankind's last best hope is faced with an agonizing choice: submit to the barbarians and be overrun -- or fight them and be destroyed.",
                 PageCount = 255,
-                CoverUrl = "book_covers/Foundation_gnome_pddwbp",
+                CoverUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584096722/book_covers/Foundation_gnome_pddwbp.jpg",
+                CoverId = "book_covers/Foundation_gnome_pddwbp",
                 AuthorId = dbContext.Authors.First(x => x.PersonalName == "Isaac" && x.Surname == "Asimov").Id,
                 BookGenres = new HashSet<BookGenre>
                 {
@@ -94,7 +97,8 @@
                 PublishedOn = new DateTime(1978, 10, 3),
                 Annotation = "This is the way the world ends: with a nanosecond of computer error in a Defense Department laboratory and a million casual contacts that form the links in a chain letter of death. And here is the bleak new world of the day after: a world stripped of its institutions and emptied of 99 percent of its people. A world in which a handful of panicky survivors choose sides -- or are chosen.",
                 PageCount = 823,
-                CoverUrl = "book_covers/The_Stand_cover_hhmcca",
+                CoverUrl = "https://res.cloudinary.com/dzpsrlawz/image/upload/v1584096893/book_covers/The_Stand_cover_hhmcca.jpg",
+                CoverId = "book_covers/The_Stand_cover_hhmcca",
                 AuthorId = dbContext.Authors.First(x => x.PersonalName == "Stephen" && x.Surname == "King").Id,
                 BookGenres = new HashSet<BookGenre>
                 {

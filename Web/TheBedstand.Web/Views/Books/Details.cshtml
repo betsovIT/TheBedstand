@@ -14,7 +14,7 @@
     <div class="card" style="border-radius: 10px">
         <div class="card-body">
             <div class="row mb-2">
-                <img class="card-img col-md-3" src="@await cloudinaryService.GetUrlById(Model.CoverUrl)" />
+                <img class="card-img col-md-3" src="@Model.CoverUrl" />
                 <div class="card-text col-md-9">
                     <h3>@Model.Title</h3>
                     <p class="text-dark font-weight-bolder">by <a href="/Authors/Details?id=@Model.Author.Id" class="text-dark font-weight-bolder">@NameHelper.GetFullName(Model.Author.PersonalName, Model.Author.Surname)</a></p>
@@ -67,23 +67,28 @@
 <div id="allComments">
     @foreach (var comment in Model.Comments.OrderByDescending(x => x.CreatedOn))
     {
-        <div class="container mb-2">
+        <div id="@comment.Id" class="container mb-2">
             <div class="card" style="border-radius: 10px">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-2">
-                            <img src="@(await cloudinaryService.GetUrlById(comment.UserAvatarId))" class="card-img" style="max-height:200px; max-width:150px" />
+                            <img src="@(comment.UserAvatarUrl)" class="card-img" style="max-height:200px; max-width:150px" />
                             <p class="text-secondary text-center">
                                 @(TimeDifferenceHelper.GetTimeDifference(comment.CreatedOn))
                             </p>
                         </div>
                         <div class="col-10">
                             <p>
-                                <a class="float-left" href="#"><strong>@comment.Username</strong></a>
+                                <strong class="float-left">@comment.Username</strong>
+                                <div class="d-inline-block float-right">                                    
+                                    <a href="#" class="text-dark mx-1"><i class="fas fa-edit"></i></a>
+                                    <a href="#" class="text-dark mx-1" onclick="deleteComment('@comment.Id')"><i class="fas fa-trash-alt"></i></a>
+                                </div>
+                                
                             </p>
                             <div class="clearfix"></div>
                             <p>@comment.Content</p>
-                        </div>
+                        </div>  
                     </div>
                 </div>
             </div>
@@ -104,13 +109,33 @@
             data: JSON.stringify(commentData),
             success: function (response) {
 
-                let imageUrl = response["userAvatarId"];
+                let imageUrl = response["userAvatarUrl"];
                 let content = response["content"];
                 let username = response["username"];
                 let createdOn = response["createdOn"];
-                $("#allComments").prepend('<div class="container mb-2"> <div class="card" style="border-radius: 10px"> <div class="card-body"> <div class="row"> <div class="col-2"> <img src="'+imageUrl+'" class="card-img" style="max-height:200px; max-width:150px"/> <p class="text-secondary text-center">Now</p></div><div class="col-10"> <p> <a class="float-left" href="#"><strong>'+username+'</strong></a> </p><div class="clearfix"></div><p>'+content+'</p></div></div></div></div></div>');
+                let commentId = response["id"];
+                $("#allComments").prepend('<div id="'+ commentId +'" class="container mb-2"> <div class="card" style="border-radius: 10px"> <div class="card-body"> <div class="row"> <div class="col-2"> <img src="'+ imageUrl +'" class="card-img" style="max-height:200px; max-width:150px"/> <p class="text-secondary text-center">Now</p></div><div class="col-10"> <p> <strong class="float-left">' + username + '</strong> <div class="d-inline-block float-right"> <a href="#" class="text-dark mx-1"><i class="fas fa-edit"></i></a> <a href="#" class="text-dark mx-1" onclick="deleteComment(\'' + commentId + '\')"><i class="fas fa-trash-alt"></i></a> </div></p><div class="clearfix"></div><p>' + content + '</p></div></div></div></div></div>');
             }            
         });
         $("#commentContent").val('');
+    }
+
+    function deleteComment(htmlId) {
+
+        var commentId = "#" + htmlId;
+        var json = {id: `${htmlId}`}
+
+        $.ajax({
+            url: "/api/Comments",
+            type: "DELETE",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(json), 
+            success: function (response) {
+                if (response == true) {
+                    $(commentId).remove();
+                }                
+            }
+        });
     }
 </script>

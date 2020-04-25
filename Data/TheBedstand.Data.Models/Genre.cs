@@ -24,6 +24,8 @@
 
         public string ImageUrl { get; set; }
 
+        public string ImageId { get; set; }
+
         public ICollection<BookGenre> BooksGenre { get; set; }
     }
 }

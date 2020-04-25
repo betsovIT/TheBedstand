@@ -6,6 +6,8 @@
 
     public class CreateGenreInputModel
     {
+        public int Id { get; set; }
+
         [Required]
         [MinLength(3)]
         [MaxLength(20)]
