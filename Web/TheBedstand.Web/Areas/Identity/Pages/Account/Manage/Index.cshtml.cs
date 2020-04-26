@@ -93,6 +93,8 @@ namespace TheBedstand.Web.Areas.Identity.Pages.Account.Manage
                 .UploadPhotoAsync(Input.Photo, $"{user.UserName}", GlobalConstants.CloudFolderForUserPhotos);
 
                 user.AvatarId = result?.PublicId;
+                user.AvatarUrl = result?.Uri?.AbsoluteUri;
+
                 AvatarUrl = result?.Uri.AbsoluteUri;
                 await _userManager.UpdateAsync(user);
             }

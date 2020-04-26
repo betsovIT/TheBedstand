@@ -150,6 +150,8 @@
         var controlsId = htmlId + "controls";
 
         $("#" + textareaId).replaceWith("<textarea id=\"" + textareaId + "\" class=\"w-100\">" + $("#" + textareaId).text() + "</textarea>");
+
+        //TO DO: Prevent double click on the edit button.
         $("#" + controlsId).append("<div id=\""+ htmlId + "button\" class=\"d-flex justify-content-end \"><a class=\"btn btn-warning \" href=\"javascript:void(0);\" onclick=\"editComment(\'" + htmlId + "\')\">Edit</a></div>");
 
     }
