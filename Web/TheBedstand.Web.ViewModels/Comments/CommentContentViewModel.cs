@@ -13,5 +13,7 @@
         public DateTime CreatedOn { get; set; }
 
         public string UserAvatarUrl { get; set; }
+
+        public string UserId { get; set; }
     }
 }

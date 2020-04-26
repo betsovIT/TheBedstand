@@ -29,7 +29,7 @@
 
         public IEnumerable<BookInfoViewModel> All()
         {
-            var result = this.booksRepository
+            var books = this.booksRepository
                  .All()
                  .Select(b => new BookInfoViewModel
                  {
@@ -53,7 +53,7 @@
                  })
                  .ToList();
 
-            return result;
+            return books;
         }
 
         public async Task Create(BookInputModel input, ImageUploadResult result)
@@ -117,6 +117,14 @@
                      Author = b.Author,
                      Id = b.Id,
                      Genres = b.BookGenres.Select(x => x.Genre.Name).ToList(),
+                     Comments = this.commentRepository.All().Where(x => x.BookId == b.Id).Select(x => new CommentContentViewModel
+                     {
+                         Id = x.Id,
+                         Content = x.Content,
+                         CreatedOn = x.CreatedOn,
+                         UserAvatarUrl = x.User.AvatarUrl,
+                         Username = x.User.UserName,
+                     }),
                  }).ToList();
 
             return result;
@@ -144,6 +152,7 @@
                          CreatedOn = x.CreatedOn,
                          UserAvatarUrl = x.User.AvatarUrl,
                          Username = x.User.UserName,
+                         UserId = x.User.Id,
                      }),
                  })
                  .FirstOrDefault(x => x.Id == id);

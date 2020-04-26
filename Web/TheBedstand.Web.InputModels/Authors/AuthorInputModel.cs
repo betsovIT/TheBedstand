@@ -13,13 +13,14 @@
     {
         public int Id { get; set; }
 
-        [MinLength(2)]
-        [MaxLength(20)]
+        [MinLength(2, ErrorMessage = "The personal name should be at least 2 characters long.")]
+        [MaxLength(20, ErrorMessage = "The personal name should be at most 20 characters long.")]
+        [Display(Name = "Personal Name")]
         public string PersonalName { get; set; }
 
-        [Required]
-        [MinLength(2)]
-        [MaxLength(50)]
+        [Required(ErrorMessage = "You must enter a Surname.")]
+        [MinLength(2, ErrorMessage = "The personal name should be at least 2 characters long.")]
+        [MaxLength(50, ErrorMessage = "The personal name should be at most 50 characters long.")]
         public string Surname { get; set; }
 
         public string Biography { get; set; }
@@ -29,7 +30,7 @@
 
         public int? PseudonymForId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "You must designate the author's Country.")]
         public Country Country { get; set; }
 
         public IFormFile Image { get; set; }

@@ -22,6 +22,7 @@
     using TheBedstand.Services.Data;
     using TheBedstand.Services.Mapping;
     using TheBedstand.Services.Messaging;
+    using TheBedstand.Web.Filters;
     using TheBedstand.Web.ViewModels;
 
     public class Startup
@@ -88,6 +89,7 @@
             services.AddTransient<IBooksService, BooksService>();
             services.AddTransient<IAuthorsService, AuthorsService>();
             services.AddTransient<ICommentsService, CommentsService>();
+            services.AddTransient<AuthorizeRootUserAttribute>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

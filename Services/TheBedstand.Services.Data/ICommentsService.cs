@@ -12,5 +12,7 @@
         Task<Comment> Create(CommentInputModel input);
 
         Task<bool> Delete(string id);
+
+        Task<Comment> Edit(CommentIdInputModel input);
     }
 }

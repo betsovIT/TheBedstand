@@ -3,9 +3,7 @@
 @using TheBedstand.Common
 @using Microsoft.AspNetCore.Identity
 @using TheBedstand.Data.Models
-@using TheBedstand.Services
 @inject UserManager<ApplicationUser> userManager
-@inject ICloudinaryService cloudinaryService
 
 @{
     var user = await userManager.GetUserAsync(this.User);
@@ -36,7 +34,7 @@
                 </p>
             </div>
         </div>
-        
+
     </div>
 </div>
 
@@ -46,7 +44,7 @@
             <h4>Add Comment</h4>
             <div class="row">
                 <div class="col-md-2">
-                    <img src="@await cloudinaryService.GetUrlById(user.AvatarId)" class="card-img" style="max-height:200px; max-width:150px"/>
+                    <img src="@(user.AvatarUrl != null ? user.AvatarUrl : "https://res.cloudinary.com/dzpsrlawz/image/upload/v1586768504/user_photos/pngfuel.com_x1nmnm.png")" class="card-img" style="max-height:200px; max-width:150px" />
                 </div>
                 <div class="col-md-10">
                     <strong>
@@ -72,23 +70,30 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-2">
-                            <img src="@(comment.UserAvatarUrl)" class="card-img" style="max-height:200px; max-width:150px" />
+                            <img src="@(comment.UserAvatarUrl != null ? comment.UserAvatarUrl : "https://res.cloudinary.com/dzpsrlawz/image/upload/v1586768504/user_photos/pngfuel.com_x1nmnm.png")" class="card-img" style="max-height:200px; max-width:150px" />
                             <p class="text-secondary text-center">
                                 @(TimeDifferenceHelper.GetTimeDifference(comment.CreatedOn))
                             </p>
                         </div>
-                        <div class="col-10">
+                        <div id="@(comment.Id + "controls")" class="col-10">
                             <p>
                                 <strong class="float-left">@comment.Username</strong>
-                                <div class="d-inline-block float-right">                                    
-                                    <a href="#" class="text-dark mx-1"><i class="fas fa-edit"></i></a>
-                                    <a href="#" class="text-dark mx-1" onclick="deleteComment('@comment.Id')"><i class="fas fa-trash-alt"></i></a>
+
+                                <div class="d-inline-block float-right">
+                                    @if (this.userManager.GetUserId(User) == comment.UserId)
+                                    {
+                                        <a href="javascript:void(0);" class="text-dark mx-1" onclick="editCommentHtml('@comment.Id')"><i class="fas fa-edit"></i></a>
+                                    }
+
+                                    @if (this.userManager.GetUserId(User) == comment.UserId || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                    {
+                                        <a href="javascript:void(0);" class="text-dark mx-1" onclick="deleteComment('@comment.Id')"><i class="fas fa-trash-alt"></i></a>
+                                    }
                                 </div>
-                                
                             </p>
                             <div class="clearfix"></div>
-                            <p>@comment.Content</p>
-                        </div>  
+                            <p id="@(comment.Id + "content")" class="w-100">@comment.Content</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -109,13 +114,13 @@
             data: JSON.stringify(commentData),
             success: function (response) {
 
-                let imageUrl = response["userAvatarUrl"];
+                let imageUrl = (response["userAvatarUrl"] == null) ? "https://res.cloudinary.com/dzpsrlawz/image/upload/v1586768504/user_photos/pngfuel.com_x1nmnm.png" : response["userAvatarUrl"];
                 let content = response["content"];
                 let username = response["username"];
                 let createdOn = response["createdOn"];
                 let commentId = response["id"];
-                $("#allComments").prepend('<div id="'+ commentId +'" class="container mb-2"> <div class="card" style="border-radius: 10px"> <div class="card-body"> <div class="row"> <div class="col-2"> <img src="'+ imageUrl +'" class="card-img" style="max-height:200px; max-width:150px"/> <p class="text-secondary text-center">Now</p></div><div class="col-10"> <p> <strong class="float-left">' + username + '</strong> <div class="d-inline-block float-right"> <a href="#" class="text-dark mx-1"><i class="fas fa-edit"></i></a> <a href="#" class="text-dark mx-1" onclick="deleteComment(\'' + commentId + '\')"><i class="fas fa-trash-alt"></i></a> </div></p><div class="clearfix"></div><p>' + content + '</p></div></div></div></div></div>');
-            }            
+                $("#allComments").prepend('<div id="' + commentId + '" class="container mb-2"> <div class="card" style="border-radius: 10px"> <div class="card-body"> <div class="row"> <div class="col-2"> <img src="' + imageUrl + '" class="card-img" style="max-height:200px; max-width:150px"/> <p class="text-secondary text-center">Now</p></div><div class="col-10"> <p> <strong class="float-left">' + username + '</strong> <div class="d-inline-block float-right"> <a href="#" class="text-dark mx-1"><i class="fas fa-edit"></i></a> <a href="#" class="text-dark mx-1" onclick="deleteComment(\'' + commentId + '\')"><i class="fas fa-trash-alt"></i></a> </div></p><div class="clearfix"></div><p>' + content + '</p></div></div></div></div></div>');
+            }
         });
         $("#commentContent").val('');
     }
@@ -130,12 +135,45 @@
             type: "DELETE",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            data: JSON.stringify(json), 
+            data: JSON.stringify(json),
             success: function (response) {
                 if (response == true) {
                     $(commentId).remove();
-                }                
+                }
             }
         });
     }
+
+    function editCommentHtml(htmlId) {
+
+        var textareaId = htmlId + "content";
+        var controlsId = htmlId + "controls";
+
+        $("#" + textareaId).replaceWith("<textarea id=\"" + textareaId + "\" class=\"w-100\">" + $("#" + textareaId).text() + "</textarea>");
+        $("#" + controlsId).append("<div id=\""+ htmlId + "button\" class=\"d-flex justify-content-end \"><a class=\"btn btn-warning \" href=\"javascript:void(0);\" onclick=\"editComment(\'" + htmlId + "\')\">Edit</a></div>");
+
+    }
+
+    function editComment(htmlId) {
+
+        var requestData = { content: $("#" + htmlId + "content").val(), userId: "@userManager.GetUserId(User)", bookId: "@Model.Id", Id: htmlId };
+        var textareaId = htmlId + "content";
+
+        $.ajax({
+            url: "/api/Comments",
+            type: "PATCH",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(requestData),
+            success: function (response) {
+                $("#" + textareaId).replaceWith("<p id=\"" + textareaId + "\" class=\"w-100\">" + response["content"] + "</p>");
+                $("#" + htmlId + "button").remove();
+            },
+            error: function () {
+                $("#" + textareaId).replaceWith("<p id=\"" + textareaId + "\" class=\"w-100\">" + $("#" + textareaId).text() + "</p>");
+                $("#" + htmlId + "button").remove();
+            },
+        });
+    }
+
 </script>

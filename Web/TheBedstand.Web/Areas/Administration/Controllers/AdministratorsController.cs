@@ -1,7 +1,5 @@
-﻿namespace TheBedstand.Web.Controllers
+﻿namespace TheBedstand.Web.Areas.Administration.Controllers
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -9,9 +7,12 @@
     using Microsoft.AspNetCore.Mvc;
     using TheBedstand.Common;
     using TheBedstand.Data.Models;
+    using TheBedstand.Web.Filters;
     using TheBedstand.Web.InputModels.Administrators;
     using TheBedstand.Web.ViewModels.Administrators;
 
+    [ServiceFilter(typeof(AuthorizeRootUserAttribute))]
+    [Area("Administration")]
     public class AdministratorsController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;

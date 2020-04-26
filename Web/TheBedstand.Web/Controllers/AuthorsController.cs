@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using TheBedstand.Common;
     using TheBedstand.Common.Helpers;
@@ -25,6 +26,7 @@
             this.cloudinaryService = cloudinaryService;
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpGet]
         public IActionResult Create()
         {
@@ -34,6 +36,7 @@
             return this.View(model);
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPost]
         public async Task<IActionResult> Create(AuthorInputModel input)
         {
@@ -54,6 +57,7 @@
             return this.RedirectToAction("Index", "Home");
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult All()
         {
@@ -61,6 +65,7 @@
             return this.View(model);
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Details(int id)
         {
@@ -88,6 +93,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -109,6 +115,7 @@
             return this.View(authorWithAttachedSelectList);
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPost]
         public async Task<IActionResult> Edit(AuthorInputModel input)
         {
@@ -141,6 +148,7 @@
             return this.RedirectToAction("Details", new { id = author.Id });
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {

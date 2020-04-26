@@ -3,12 +3,14 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using TheBedstand.Common;
     using TheBedstand.Services;
     using TheBedstand.Services.Data;
     using TheBedstand.Web.InputModels.Books;
     using TheBedstand.Web.ViewModels.Authors;
+    using TheBedstand.Web.ViewModels.Books;
     using TheBedstand.Web.ViewModels.Genres;
 
     public class BooksController : Controller
@@ -26,13 +28,23 @@
             this.genresService = genresService;
         }
 
-        public IActionResult All()
+        [Authorize]
+        [HttpGet]
+        public IActionResult All(int? page)
         {
-            var model = this.booksService.All();
+            var books = this.booksService.All();
+            var pager = new Pager(books.Count(), page, 5);
+
+            var model = new BooksIndexViewModel
+            {
+                Items = books.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize),
+                Pager = pager,
+            };
 
             return this.View(model);
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpGet]
         public IActionResult Create()
         {
@@ -43,6 +55,7 @@
             return this.View(model);
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPost]
         public async Task<IActionResult> Create(BookInputModel input)
         {
@@ -60,15 +73,27 @@
                 await this.booksService.Create(input, result);
             }
 
-            return this.RedirectToAction("Index", "Home");
+            return this.RedirectToAction("All");
         }
 
+        [Authorize]
         [HttpGet]
-        public IActionResult GetByGenre(int id)
+        public IActionResult GetByGenre(int id, int? page)
         {
-            return this.View("All", this.booksService.GetByGenre(id));
+            this.ViewData["genreId"] = id;
+
+            var books = this.booksService.GetByGenre(id);
+            var pager = new Pager(books.Count(), page, 5);
+
+            var model = new BooksIndexViewModel
+            {
+                Items = books.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize),
+                Pager = pager,
+            };
+            return this.View("ByGenre", model);
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Details(string id)
         {
@@ -77,6 +102,7 @@
             return this.View(model);
         }
 
+        [Authorize(Roles =GlobalConstants.AdministratorRoleName)]
         [HttpGet]
         public IActionResult Edit(string id)
         {
@@ -97,6 +123,7 @@
             return this.View(model);
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPost]
         public async Task<IActionResult> Edit(BookInputModel input)
         {
@@ -138,6 +165,7 @@
             return this.RedirectToAction("Details", new { id = dbBook.Id });
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Delete(string id)
         {
             if (await this.booksService.DeleteBook(id))

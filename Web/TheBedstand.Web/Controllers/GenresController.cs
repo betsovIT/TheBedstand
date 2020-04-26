@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using TheBedstand.Common;
     using TheBedstand.Services;
@@ -19,6 +20,8 @@
             this.cloudinaryService = cloudinaryService;
         }
 
+        [Authorize]
+        [HttpGet]
         public IActionResult All()
         {
             var viewModel = this.genresService.GetAll();
@@ -26,6 +29,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpGet]
         public IActionResult Create()
         {
@@ -34,6 +38,7 @@
             return this.View(model);
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPost]
         public async Task<IActionResult> Create(CreateGenreInputModel input)
         {
@@ -49,6 +54,7 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -58,6 +64,7 @@
             return this.View(model);
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPost]
         public async Task<IActionResult> Edit(CreateGenreInputModel input)
         {
@@ -94,6 +101,7 @@
             return this.RedirectToAction("All");
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {

@@ -4,11 +4,14 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Security.Claims;
     using System.Text.Json;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using TheBedstand.Common;
     using TheBedstand.Common.Helpers;
     using TheBedstand.Data.Models;
     using TheBedstand.Services;
@@ -31,6 +34,7 @@
             this.cloudinaryService = cloudinaryService;
         }
 
+        [Authorize]
         [HttpPost]
         [ProducesResponseType(201, Type = typeof(CommentContentViewModel))]
         public async Task<ActionResult<CommentContentViewModel>> CreateComment(CommentInputModel input)
@@ -50,12 +54,33 @@
             return this.Ok(result);
         }
 
+        [Authorize]
         [HttpDelete]
         public async Task<ActionResult> DeleteComment(CommentIdInputModel input)
         {
             var result = await this.commentsService.Delete(input.Id);
 
             return this.Ok(result);
+        }
+
+        [HttpPatch]
+        public async Task<IActionResult> EditComment(CommentIdInputModel input)
+        {
+            if (this.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value != input.UserId)
+            {
+                return this.StatusCode(400);
+            }
+
+            var result = await this.commentsService.Edit(input);
+
+            if (result == null)
+            {
+                return this.StatusCode(400);
+            }
+            else
+            {
+                return this.Ok(result);
+            }
         }
     }
 }

@@ -3,7 +3,7 @@
     ViewData["Title"] = "Create";
 }
 
-<form asp-controller="Genres" asp-action="Create" method="post" enctype="multipart/form-data">
+<form asp-controller="Genres" asp-action="Create" class="px-2 py-2 bg-gray mx-auto" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="Name" class="text-dark">Genre Name</label>
         <input asp-for="Name" class="form-control w-25" type="text" id="Name" />

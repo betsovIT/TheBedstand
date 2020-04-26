@@ -51,5 +51,23 @@
                 return false;
             }
         }
+
+        public async Task<Comment> Edit(CommentIdInputModel input)
+        {
+            var comment = this.commentRepository.All().FirstOrDefault(x => x.Id == input.Id);
+
+            if (comment == null || input.Content == null)
+            {
+                return null;
+            }
+            else
+            {
+                comment.Content = input.Content;
+            }
+
+            await this.commentRepository.SaveChangesAsync();
+
+            return comment;
+        }
     }
 }
