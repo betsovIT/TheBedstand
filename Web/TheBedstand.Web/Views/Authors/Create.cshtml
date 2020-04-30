@@ -38,7 +38,7 @@
 
         <div class="form-group">
             <label class="text-dark" for="C">Country</label>
-            <select asp-for="Country" asp-items="Html.GetEnumSelectList<Country>()">
+            <select asp-for="Country" asp-items="@CountryForSelectList<Country>.GetValuesForSelectList().Select(a => new SelectListItem { Text = a.Text, Value = a.Value.ToString()})">
                 <option selected="selected" value="">Please select</option>
             </select>
             <span asp-validation-for="Country" class="text-danger"></span>

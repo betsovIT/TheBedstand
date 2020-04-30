@@ -133,7 +133,8 @@
                 var result = await this.cloudinaryService
                 .UploadPhotoAsync(input.Image, $"{input.PersonalName + " " + input.Surname}", GlobalConstants.CloudFolderForAuthorsPhotos);
 
-                author.ImageUrl = result?.PublicId;
+                author.ImageUrl = result?.Uri?.AbsoluteUri;
+                author.ImageId = result?.PublicId;
             }
 
             author.Biography = input.Biography;

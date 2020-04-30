@@ -145,17 +145,15 @@
     </header>
 
     <main>
+        <partial name="_CookieConsentPartial" />
         <div id="mainContent" class="container">
             @this.RenderBody()
         </div>
     </main>
 
-    <footer class="footer border-top  text-muted">
+    <footer class="footer border-top  text-muted bg-dark">
         <div class="container">
             &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-        <div class="text-center">
-            <p class="small text-gray mb-0">Template by <a href="https://bootstrapious.com" class="text-gray">Bootstrapious.com</a></p>
         </div>
     </footer>
 

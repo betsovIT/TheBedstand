@@ -1,8 +1,14 @@
 ﻿@using TheBedstand.Common
+@using Microsoft.AspNetCore.Hosting
+@inject IWebHostEnvironment env
 @{
     this.ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4 text-white">Welcome to @GlobalConstants.SystemName!</h1>
+<div class="container">
+    <div class="text-center" style="font-family: Georgia, 'Times New Roman', Times, serif">
+        <h1 class="display-4 text-dark">Welcome to the Bedstand a place for the avid bookreader.</h1>
+    </div>
 </div>
+
+<p class="text-center">You can use the following credentials to test the site: <strong>username:root_user</strong>, <strong>password:abc123</strong></p>

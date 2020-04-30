@@ -10,9 +10,10 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 110px;
-    background-image: url('https://res.cloudinary.com/dzpsrlawz/image/upload/v1585655191/try_2_sctuly.png');
+    background-image: url('https://res.cloudinary.com/dzpsrlawz/image/upload/v1587996049/test_jkvxvr.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-size: cover;
 }
 
 /* Sticky footer styles
